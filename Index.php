@@ -1,3 +1,6 @@
 <?php
-echo "okookk index";
+echo "okookk indexasasasas";
+
+
+echo "prueba";
 ?>
