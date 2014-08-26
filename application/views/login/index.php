@@ -102,14 +102,14 @@ License: You must have a valid license purchased only from themeforest(the above
                     <input class="form-control placeholder-no-fix" type="password" autocomplete="off" placeholder="Password" name="password"/>
                 </div>
             </div>
-            <div class="form-actions">
+            <div class="form-actions" align="center">
 
-                <button type="submit" class="btn blue pull-right">
-                    Ingresar <i class="m-icon-swapright m-icon-white"></i>
+                <button type="submit" class="btn blue">
+                    Ingresar al Sistema<i class="m-icon-swapright m-icon-white"></i>
                 </button>
             </div>
 
-            <br><br>
+           
             <?php if ($this->session->flashdata('message')) { ?>
                 <div class="alert alert-<?php echo $this->session->flashdata('message_type'); ?>">
                     <?php echo $this->session->flashdata('message'); ?>
