@@ -1,39 +1,19 @@
 <?php
-
 if (!defined('BASEPATH'))
     exit('No direct script access allowed');
 
-class User_model extends CI_Model {
+class Cut_model extends CI_Model {
 
-    public function get_all_users($state = 1) {
+    public function get_all_cuts() {
         $SQL_string = "SELECT *
-                      FROM {$this->db->dbprefix('usuarios')}
-                      WHERE USUARIO_ESTADO=$state
-                      ORDER BY USUARIO_NOMBRES";
-        $SQL_string_query = $this->db->query($SQL_string);
-        return $SQL_string_query->result();
-    }
-    
-    public function get_user_documento($username){
-        $sql_string = "SELECT *
-                      FROM {$this->db->dbprefix('usuarios')}
-                      WHERE USUARIO_NUMERODOCUMENTO = '{$username}'
-                      AND USUARIO_ESTADO=1";
-
-        $sql_query = $this->db->query($sql_string);
-        return $sql_query->result();        
-    }    
-
-    public function get_user_id_user($id_user) {
-        $SQL_string = "SELECT *
-                      FROM {$this->db->dbprefix('usuarios')}
-                      WHERE USUARIO_ID = $id_user AND USUARIO_ESTADO = '1'";
-        //echo $SQL_string;
+                      FROM {$this->db->dbprefix('cortes')} c, "
+                      . "{$this->db->dbprefix('usuarios')} u "
+                      . "WHERE c.USUARIO_ID = u.USUARIO_ID";
         $SQL_string_query = $this->db->query($SQL_string);
         return $SQL_string_query->result();
     }
 
-    public function insert_user($data) {
+    public function insert_cut($data) {
         $SQL_string = "INSERT INTO {$this->db->dbprefix('usuarios')}
                       (
                        USUARIO_NOMBRES,  
@@ -58,7 +38,7 @@ class User_model extends CI_Model {
         return $this->db->query($SQL_string);
     }
 
-    public function update_user($data) {
+    public function update_cut($data) {
         $SQL_string = "UPDATE {$this->db->dbprefix('usuarios')} SET
                        USUARIO_NOMBRES = '{$data['USUARIO_NOMBRES']}', 
                        USUARIO_APELLIDOS = '{$data['USUARIO_APELLIDOS']}',
