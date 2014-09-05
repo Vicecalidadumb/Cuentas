@@ -40,6 +40,14 @@
         <div class="clearfix">
         </div>
 
+        <div class="col-md-12 col-sm-12">
+            <?php if ($this->session->flashdata('message')) { ?>
+                <div class="alert alert-<?php echo $this->session->flashdata('message_type'); ?>">
+                    <?php echo $this->session->flashdata('message'); ?>
+                </div>
+            <?php } ?>          
+        </div>        
+
         <div class="row ">
             <div class="col-md-12 col-sm-12">
                 <!-- BEGIN SAMPLE TABLE PORTLET-->
@@ -101,7 +109,7 @@
                                                 <?php echo $cut->CORTE_FECHACREACION; ?>
                                             </td>                                            
                                             <td>
-                                                <a href="#" class="btn default btn-xs purple">
+                                                <a href="<?php echo base_url('cut/edit/'.encrypt_id($cut->CORTE_ID)) ?>" class="btn default btn-xs purple">
                                                     <i class="fa fa-edit"></i> 
                                                     Editar 
                                                 </a>                                              

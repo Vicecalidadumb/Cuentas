@@ -1,114 +1,210 @@
-<?php if ($this->session->flashdata('message')) { ?>
-    <div class="alert alert-<?php echo $this->session->flashdata('message_type'); ?>">
-        <?php echo $this->session->flashdata('message'); ?>
-    </div>
-<?php } ?>
+<!-- BEGIN CONTENT -->
+<div class="page-content-wrapper">
+    <div class="page-content">
+        <!-- BEGIN PAGE HEADER-->
+        <h3 class="page-title">
+            Editar Corte <small>para Pagos</small>
+        </h3>
+        <div class="page-bar">
+            <ul class="page-breadcrumb">
+                <li>
+                    <i class="fa fa-home"></i>
+                    <a href="<?php echo base_url('desk') ?>">
+                        Escritorio
+                    </a>
+                    <i class="fa fa-angle-right"></i>
+                </li>
+                <li>
+                    <a href="<?php echo base_url('cut') ?>">
+                        Cortes
+                    </a>
+                    <i class="fa fa-angle-right"></i>
+                </li>
+                <li>
+                    <a href="<?php echo base_url('cut/edit') ?>">
+                        Editar
+                    </a>
+                </li>                 
+            </ul>            
+        </div>
+        <!-- END PAGE HEADER-->
 
-
-<div class="jumbotron">
-    <div style="text-align: center">
-        <img src="<?php echo base_url('images/banner1.png'); ?>" style="width: 180px;">
-        <img src="<?php echo base_url('images/marca-umb.png'); ?>" style="width: 280px;">  
-    </div>
-    <h2>Usuarios del Sistema</h2>
-    <h4>CONVOCATORIA No. 255 de 2013 CATASTRO DISTRITAL</h4>
-</div>
-
-<div class="page-header">
-    <h1 style="color:#2aabd2">
-        Editar Usuario
-    </h1>
-</div>
-
-
-<?php echo form_open('user/update', 'id="user_update" class="form-signin" role="form" method="POST"'); ?>
-
-<?php echo form_hidden('USUARIO_ID', $user[0]->USUARIO_ID); ?>
-
-<div class="row">
-    <div class="col-md-6">
-
-        <div class="form-group">
-            <label for="exampleInputEmail1">Nombres </label>
-            <?php echo form_input('USUARIO_NOMBRES', $user[0]->USUARIO_NOMBRES, 'id="USUARIO_NOMBRES" placeholder="Nombres" class="form-control"') ?>
+        <div class="clearfix">
         </div>
 
-        <div class="form-group">
-            <label for="exampleInputEmail1">Tipo de Documento</label>
-            <?php echo form_dropdown('USUARIO_TIPODOCUMENTO', array("CC" => "CC"), $user[0]->USUARIO_TIPODOCUMENTO, 'class="form-control"'); ?>
-        </div>
-        
-        <div class="form-group">
-            <label for="exampleInputEmail1">Correo Electronico</label>
-             <?php echo form_input('USUARIO_CORREO', $user[0]->USUARIO_CORREO, 'id="USUARIO_CORREO" placeholder="Correo" class="form-control"') ?>
-        </div>
-        
-        <div class="form-group">
-            <label for="exampleInputEmail1">Clave del Sistema (Vac&iacute;o para no modificar la actual clave)</label>
-             <?php echo form_password('USUARIO_CLAVE', '', 'id="USUARIO_CLAVE" placeholder="Clave" class="form-control"') ?>
-        </div>         
+        <div class="row ">
 
+            <div class="col-md-12 col-sm-12">
+                <?php if ($this->session->flashdata('message')) { ?>
+                    <div class="alert alert-<?php echo $this->session->flashdata('message_type'); ?>">
+                        <?php echo $this->session->flashdata('message'); ?>
+                    </div>
+                <?php } ?>            
+                <?php echo validation_errors(); ?>            
+            </div>
+
+            <div class="col-md-12 col-sm-12">
+
+                <div class="portlet box purple">
+                    <div class="portlet-title">
+                        <div class="caption">
+                            <i class="fa fa-gift"></i>Editar Registro
+                        </div>
+                        <div class="tools">
+                            <a href="javascript:;" class="collapse">
+                            </a>
+                        </div>
+                    </div>
+                    <div class="portlet-body form">
+                        <!-- BEGIN FORM-->
+                        <form id="update_cut" action="<?php echo base_url('cut/update/' . encrypt_id($cut[0]->CORTE_ID)); ?>" method="post" class="form-horizontal form-row-seperated">
+                            <div class="form-body">
+                                <div class="form-group">
+                                    <label class="control-label col-md-3">
+                                        Nombre Administrativo
+                                        <span class="required" aria-required="true">*</span>
+                                    </label>
+                                    <div class="col-md-9">
+                                        <input type="text" name="CORTE_NOMBREADMIN" value="<?php echo $cut[0]->CORTE_NOMBREADMIN; ?>" id="CORTE_NOMBREADMIN" placeholder="Nombre Administrativo" class="form-control">
+                                        <span class="help-block">
+                                            Ingrese por favor un nombre administrativo para el nuevo corte.  
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-md-3">
+                                        Dia de Pago
+                                        <span class="required" aria-required="true">*</span>
+                                    </label>
+                                    <div class="col-md-9">
+                                        <input type="text" name="CORTE_DIAPAGO" value="<?php echo $cut[0]->CORTE_DIAPAGO; ?>" id="CORTE_DIAPAGO" placeholder="Dia de Pago" class="form-control">
+                                        <span class="help-block">
+                                            Ingrese por favor el dia de pago para este corte.  
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-md-3">
+                                        Dia de Inicio del Corte
+                                        <span class="required" aria-required="true">*</span>
+                                    </label>
+                                    <div class="col-md-9">
+                                        <input type="text" name="CORTE_DIAINICIO" value="<?php echo $cut[0]->CORTE_DIAINICIO; ?>" id="CORTE_DIAINICIO" placeholder="Dia de Inicio del Corte" class="form-control">
+                                        <span class="help-block">
+                                            Ingrese por favor un dia de inicio para este corte.  
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-md-3">
+                                        Dia Final del Corte
+                                        <span class="required" aria-required="true">*</span>
+                                    </label>
+                                    <div class="col-md-9">
+                                        <input type="text" name="CORTE_DIAFIN" value="<?php echo $cut[0]->CORTE_DIAFIN; ?>" id="CORTE_DIAFIN" placeholder="Dia Final del Corte" class="form-control">
+                                        <span class="help-block">
+                                            Ingrese por favor un Dia Final del Corte para el nuevo registro.  
+                                        </span>
+                                    </div>
+                                </div>                                
+
+
+                            </div>
+                            <div class="form-actions">
+                                <div class="row">
+                                    <div class="col-md-offset-3 col-md-9">
+                                        <button type="submit" class="btn green">Guardar</button>
+                                        <a href="<?php echo base_url('cut') ?>">
+                                            <button type="button" class="btn default">Cancelar</button>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                        <!-- END FORM-->
+                    </div>
+                </div>                
+
+            </div>
+        </div>
     </div>
-    <div class="col-md-6">
+    <!-- END CONTENT -->
 
-        <div class="form-group">
-            <label for="exampleInputEmail1">Apellidos </label>
-            <?php echo form_input('USUARIO_APELLIDOS', $user[0]->USUARIO_APELLIDOS, 'id="USUARIO_APELLIDOS" placeholder="Apellidos" class="form-control"') ?>
-        </div>
-        
-        <div class="form-group">
-            <label for="exampleInputEmail1">Numero de Documento / Usuario del Sistema</label>
-            <?php echo form_input('USUARIO_NUMERODOCUMENTO', $user[0]->USUARIO_NUMERODOCUMENTO, 'id="USUARIO_NUMERODOCUMENTO" placeholder="Numero de Documento / Usuario del Sistema" class="form-control"') ?>
-        </div>        
-        
-        <div class="form-group">
-            <label for="exampleInputEmail1">Rol</label>
-            <?php echo form_dropdown('ID_TIPO_USU', $roles, $user[0]->ID_TIPO_USU, 'class="form-control"'); ?>
-        </div>        
 
-    </div>
-   
-</div>
+    <script>
+        var FormValidation = function() {
+            // basic validation
+            var handleValidation1 = function() {
+                // for more info visit the official plugin documentation: 
+                // http://docs.jquery.com/Plugins/Validation
 
-<div class="row">
-    <button type="submit" class="btn btn-success">Actualizar</button>
+                var form1 = $('#update_cut');
+                var error1 = $('.alert-danger', form1);
+                var success1 = $('.alert-success', form1);
 
-</div>
-
-<?php echo form_close(); ?>
-
-<br><br><br><br>
-
-<script>
-    $(document).ready(function() {
-        $('#user_update').validate(
-                {
+                form1.validate({
+                    errorElement: 'span', //default input error message container
+                    errorClass: 'help-block help-block-error', // default input error message class
+                    focusInvalid: false, // do not focus the last invalid input
+                    ignore: "", // validate all fields including form hidden input
                     rules: {
-                        USUARIO_NOMBRES: {
-                            minlength: 2,
+                        CORTE_NOMBREADMIN: {
                             required: true
                         },
-                        USUARIO_CORREO: {
+                        CORTE_DIAPAGO: {
                             required: true,
-                            email: true
+                            minlength: 1,
+                            maxlength: 2,
+                            min: 1,
+                            max: 31,
+                            digits: true
                         },
-                        USUARIO_APELLIDOS: {
-                            minlength: 2,
-                            required: true
+                        CORTE_DIAINICIO: {
+                            required: true,
+                            minlength: 1,
+                            maxlength: 2,
+                            min: 1,
+                            max: 31,
+                            digits: true
                         },
-                        USUARIO_NUMERODOCUMENTO: {
-                            minlength: 2,
-                            required: true
+                        CORTE_DIAFIN: {
+                            required: true,
+                            minlength: 1,
+                            maxlength: 2,
+                            min: 1,
+                            max: 31,
+                            digits: true
                         }
                     },
-                    highlight: function(element) {
-                        $(element).closest('.control-group').removeClass('success').addClass('error');
+                    invalidHandler: function(event, validator) { //display error alert on form submit              
+                        success1.hide();
+                        error1.show();
+                        Metronic.scrollTo(error1, -200);
                     },
-                    success: function(element) {
-                        element
-                                .text('OK!').addClass('valid')
-                                .closest('.control-group').removeClass('error').addClass('success');
+                    highlight: function(element) { // hightlight error inputs
+                        $(element)
+                                .closest('.form-group').addClass('has-error'); // set error class to the control group
+                    },
+                    unhighlight: function(element) { // revert the change done by hightlight
+                        $(element)
+                                .closest('.form-group').removeClass('has-error'); // set error class to the control group
+                    },
+                    success: function(label) {
+                        label
+                                .closest('.form-group').removeClass('has-error'); // set success class to the control group
+                    },
+                    submitHandler: function(form) {
+                        success1.show();
+                        error1.hide();
                     }
                 });
-    });
-</script>
+            }
+            return {
+                //main function to initiate the module
+                init: function() {
+                    handleValidation1();
+                }
+            };
+
+        }();
+    </script>

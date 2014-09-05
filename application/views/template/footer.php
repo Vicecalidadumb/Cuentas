@@ -33,13 +33,13 @@
 <script src="<?php echo base_url('/assets/global/plugins/bootstrap-switch/js/bootstrap-switch.min.js'); ?>" type="text/javascript"></script>
 <!-- END CORE PLUGINS -->
 <!-- BEGIN PAGE LEVEL PLUGINS -->
-<script src="<?php echo base_url('/assets/global/plugins/jqvmap/jqvmap/jquery.vmap.js'); ?>" type="text/javascript"></script>
+<!--<script src="<?php echo base_url('/assets/global/plugins/jqvmap/jqvmap/jquery.vmap.js'); ?>" type="text/javascript"></script>
 <script src="<?php echo base_url('/assets/global/plugins/jqvmap/jqvmap/maps/jquery.vmap.russia.js'); ?>" type="text/javascript"></script>
 <script src="<?php echo base_url('/assets/global/plugins/jqvmap/jqvmap/maps/jquery.vmap.world.js'); ?>" type="text/javascript"></script>
 <script src="<?php echo base_url('/assets/global/plugins/jqvmap/jqvmap/maps/jquery.vmap.europe.js'); ?>" type="text/javascript"></script>
 <script src="<?php echo base_url('/assets/global/plugins/jqvmap/jqvmap/maps/jquery.vmap.germany.js'); ?>" type="text/javascript"></script>
 <script src="<?php echo base_url('/assets/global/plugins/jqvmap/jqvmap/maps/jquery.vmap.usa.js'); ?>" type="text/javascript"></script>
-<script src="<?php echo base_url('/assets/global/plugins/jqvmap/jqvmap/data/jquery.vmap.sampledata.js'); ?>" type="text/javascript"></script>
+<script src="<?php echo base_url('/assets/global/plugins/jqvmap/jqvmap/data/jquery.vmap.sampledata.js'); ?>" type="text/javascript"></script>-->
 <script src="<?php echo base_url('/assets/global/plugins/flot/jquery.flot.min.js'); ?>" type="text/javascript"></script>
 <script src="<?php echo base_url('/assets/global/plugins/flot/jquery.flot.resize.min.js'); ?>" type="text/javascript"></script>
 <script src="<?php echo base_url('/assets/global/plugins/flot/jquery.flot.categories.min.js'); ?>" type="text/javascript"></script>
@@ -58,6 +58,12 @@
 <script src="<?php echo base_url('/assets/admin/layout/scripts/quick-sidebar.js'); ?>" type="text/javascript"></script>
 <script src="<?php echo base_url('/assets/admin/pages/scripts/index.js'); ?>" type="text/javascript"></script>
 <script src="<?php echo base_url('/assets/admin/pages/scripts/tasks.js'); ?>" type="text/javascript"></script>
+
+
+<script type="text/javascript" src="<?php echo base_url('/assets/global/plugins/jquery-validation/js/jquery.validate.min.js'); ?>"></script>
+<script type="text/javascript" src="<?php echo base_url('/assets/global/plugins/jquery-validation/js/messages_es.js'); ?>"></script>
+<script type="text/javascript" src="<?php echo base_url('/assets/global/plugins/jquery-validation/js/additional-methods.min.js'); ?>"></script>
+
 <!-- END PAGE LEVEL SCRIPTS -->
 <script>
     jQuery(document).ready(function() {
@@ -66,11 +72,12 @@
         QuickSidebar.init() // init quick sidebar
         Index.init();
         Index.initDashboardDaterange();
-        Index.initJQVMAP(); // init index page's custom scripts
+        //Index.initJQVMAP(); // init index page's custom scripts
         Index.initCalendar(); // init index page's custom scripts
-        Index.initCharts(); // init index page's custom scripts
-        Index.initChat();
-        Index.initMiniCharts();
+        //Index.initCharts(); // init index page's custom scripts
+        //Index.initChat();
+        FormValidation.init();
+        //Index.initMiniCharts();
         Index.initIntro();
         Tasks.initDashboardWidget();
     });

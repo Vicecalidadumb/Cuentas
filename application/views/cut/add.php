@@ -33,6 +33,16 @@
         </div>
 
         <div class="row ">
+
+            <div class="col-md-12 col-sm-12">
+                <?php if ($this->session->flashdata('message')) { ?>
+                    <div class="alert alert-<?php echo $this->session->flashdata('message_type'); ?>">
+                        <?php echo $this->session->flashdata('message'); ?>
+                    </div>
+                <?php } ?>            
+                <?php echo validation_errors(); ?>            
+            </div>
+
             <div class="col-md-12 col-sm-12">
 
                 <div class="portlet box blue">
@@ -55,7 +65,7 @@
                                         <span class="required" aria-required="true">*</span>
                                     </label>
                                     <div class="col-md-9">
-                                        <input type="text" name="CORTE_NOMBREADMIN" id="CORTE_NOMBREADMIN" placeholder="Nombre Administrativo" class="form-control">
+                                        <input type="text" name="CORTE_NOMBREADMIN" value="<?php echo set_value('CORTE_NOMBREADMIN') ?>" id="CORTE_NOMBREADMIN" placeholder="Nombre Administrativo" class="form-control">
                                         <span class="help-block">
                                             Ingrese por favor un nombre administrativo para el nuevo corte.  
                                         </span>
@@ -67,7 +77,7 @@
                                         <span class="required" aria-required="true">*</span>
                                     </label>
                                     <div class="col-md-9">
-                                        <input type="text" name="CORTE_DIAPAGO" id="CORTE_DIAPAGO" placeholder="Dia de Pago" class="form-control">
+                                        <input type="text" name="CORTE_DIAPAGO" value="<?php echo set_value('CORTE_DIAPAGO') ?>" id="CORTE_DIAPAGO" placeholder="Dia de Pago" class="form-control">
                                         <span class="help-block">
                                             Ingrese por favor el dia de pago para este corte.  
                                         </span>
@@ -79,7 +89,7 @@
                                         <span class="required" aria-required="true">*</span>
                                     </label>
                                     <div class="col-md-9">
-                                        <input type="text" name="CORTE_DIAINICIO" id="CORTE_DIAINICIO" placeholder="Dia de Inicio del Corte" class="form-control">
+                                        <input type="text" name="CORTE_DIAINICIO" value="<?php echo set_value('CORTE_DIAINICIO') ?>" id="CORTE_DIAINICIO" placeholder="Dia de Inicio del Corte" class="form-control">
                                         <span class="help-block">
                                             Ingrese por favor un dia de inicio para este corte.  
                                         </span>
@@ -91,13 +101,12 @@
                                         <span class="required" aria-required="true">*</span>
                                     </label>
                                     <div class="col-md-9">
-                                        <input type="text" name="CORTE_DIAFIN" id="CORTE_DIAFIN" placeholder="Dia Final del Corte" class="form-control">
+                                        <input type="text" name="CORTE_DIAFIN" value="<?php echo set_value('CORTE_DIAFIN') ?>" id="CORTE_DIAFIN" placeholder="Dia Final del Corte" class="form-control">
                                         <span class="help-block">
-                                            Ingrese por favor un nombre administrativo para el nuevo registro.  
+                                            Ingrese por favor un Dia Final del Corte para el nuevo registro.  
                                         </span>
                                     </div>
                                 </div>                                
-
 
                             </div>
                             <div class="form-actions">
@@ -138,31 +147,35 @@
                     errorClass: 'help-block help-block-error', // default input error message class
                     focusInvalid: false, // do not focus the last invalid input
                     ignore: "", // validate all fields including form hidden input
-                    messages: {
-                        select_multi: {
-                            maxlength: jQuery.validator.format("Max {0} items allowed for selection"),
-                            minlength: jQuery.validator.format("At least {0} items must be selected")
-                        }
-                    },
                     rules: {
                         CORTE_NOMBREADMIN: {
-                            minlength: 2,
                             required: true
                         },
                         CORTE_DIAPAGO: {
                             required: true,
-                            email: true
+                            minlength: 1,
+                            maxlength: 2,
+                            min: 1,
+                            max: 31,
+                            digits: true
                         },
                         CORTE_DIAINICIO: {
                             required: true,
-                            url: true
+                            minlength: 1,
+                            maxlength: 2,
+                            min: 1,
+                            max: 31,
+                            digits: true
                         },
                         CORTE_DIAFIN: {
                             required: true,
-                            number: true
+                            minlength: 1,
+                            maxlength: 2,
+                            min: 1,
+                            max: 31,
+                            digits: true
                         }
                     },
-                    
                     invalidHandler: function(event, validator) { //display error alert on form submit              
                         success1.hide();
                         error1.show();
