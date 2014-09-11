@@ -7,9 +7,10 @@ class Config_model extends CI_Model {
 
     //////////////////////////////MODELOS DE PERMISOS DE ROLES
 
+
     public function get_roles() {
         $sql_string = "SELECT *
-                      FROM umbitems_tipos_usuario";
+                      FROM {$this->db->dbprefix('tipos_usuario')}";
         $sql_query = $this->db->query($sql_string);
         return $sql_query->result();
     }

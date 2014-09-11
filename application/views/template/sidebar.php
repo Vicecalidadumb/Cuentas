@@ -12,42 +12,53 @@
                 <!-- END SIDEBAR TOGGLER BUTTON -->
             </li>
             <!--            class="start active open"-->
-            <li >
+            
+            <li>
                 <a href="<?php echo base_url('desk'); ?>">
                     <i class="icon-home"></i>
                     <span class="title">Inicio</span>
                 </a>
             </li>
-            <li>
-                <a href="javascript:;">
-                    <i class="icon-user"></i>
-                    <span class="title">Usuarios del Sistema</span>
-                    <span class="arrow "></span>
-                </a>
-                <ul class="sub-menu">
-                    <li>
-                        <a href="<?php echo base_url('user'); ?>">
-                            Listado de Usuarios</a>
-                    </li>
-                    <li>
-                        <a href="<?php echo base_url('user/add'); ?>">
-                            Agregar Usuario</a>
-                    </li>
-                </ul>
-            </li>
-            <li>
-                <a href="javascript:;">
-                    <i class="icon-settings"></i>
-                    <span class="title">Sistema</span>
-                    <span class="arrow "></span>
-                </a>
-                <ul class="sub-menu">
-                    <li>
-                        <a href="<?php echo base_url('config/rol'); ?>">
-                            Roles</a>
-                    </li>
-                </ul>
-            </li>
+            
+            <?php if (know_permission_role('USU', 'permission_view')): ?>
+                <li>
+                    <a href="javascript:;">
+                        <i class="icon-user"></i>
+                        <span class="title">Usuarios del Sistema</span>
+                        <span class="arrow "></span>
+                    </a>
+                    <ul class="sub-menu">
+                        <li>
+                            <a href="<?php echo base_url('user'); ?>">
+                                Listado de Usuarios
+                            </a>
+                        </li>
+                        <?php if (know_permission_role('USU', 'permission_add')): ?>
+                            <li>
+                                <a href="<?php echo base_url('user/add'); ?>">
+                                    Agregar Usuario</a>
+                            </li>
+                        <?php endif; ?>
+                    </ul>
+                </li>
+            <?php endif; ?>
+
+            <?php if (know_permission_role('ROL', 'permission_view')): ?>
+                <li>
+                    <a href="javascript:;">
+                        <i class="icon-settings"></i>
+                        <span class="title">Sistema</span>
+                        <span class="arrow "></span>
+                    </a>
+                    <ul class="sub-menu">
+                        <li>
+                            <a href="<?php echo base_url('config/roles'); ?>">
+                                Roles</a>
+                        </li>
+                    </ul>
+                </li>
+            <?php endif; ?>
+
 
             <li>
                 <a href="javascript:;">

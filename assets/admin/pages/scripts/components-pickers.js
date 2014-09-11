@@ -6,12 +6,13 @@ var ComponentsPickers = function () {
             $('.date-picker').datepicker({
                 rtl: Metronic.isRTL(),
                 orientation: "left",
-                autoclose: true
+                autoclose: true,
+                format: 'yyyy-mm-dd'
             });
             //$('body').removeClass("modal-open"); // fix bug when inline picker is used in modal
         }
     }
-
+    /*
     var handleTimePickers = function () {
 
         if (jQuery().timepicker) {
@@ -201,17 +202,17 @@ var ComponentsPickers = function () {
         $('.colorpicker-rgba').colorpicker();
     }
    
-
+*/
     return {
         //main function to initiate the module
         init: function () {
             handleDatePickers();
-            handleTimePickers();
+           /* handleTimePickers();
             handleDatetimePicker();
             handleDateRangePickers();
             handleClockfaceTimePickers();
-            handleColorPicker();
+            handleColorPicker();*/
         }
     };
-
+    
 }();

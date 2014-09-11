@@ -46,6 +46,11 @@
 <script src="<?php echo base_url('/assets/global/plugins/jquery.pulsate.min.js'); ?>" type="text/javascript"></script>
 <script src="<?php echo base_url('/assets/global/plugins/bootstrap-daterangepicker/moment.min.js'); ?>" type="text/javascript"></script>
 <script src="<?php echo base_url('/assets/global/plugins/bootstrap-daterangepicker/daterangepicker.js'); ?>" type="text/javascript"></script>
+
+<script type="text/javascript" src="<?php echo base_url('/assets/global/plugins/bootstrap-datepicker/js/bootstrap-datepicker.js'); ?>"></script>
+<script src="<?php echo base_url('/assets/admin/pages/scripts/components-pickers.js'); ?>"></script>
+
+
 <!-- IMPORTANT! fullcalendar depends on jquery-ui-1.10.3.custom.min.js for drag & drop support -->
 <script src="<?php echo base_url('/assets/global/plugins/fullcalendar/fullcalendar/fullcalendar.min.js'); ?>" type="text/javascript"></script>
 <script src="<?php echo base_url('/assets/global/plugins/jquery-easypiechart/jquery.easypiechart.min.js'); ?>" type="text/javascript"></script>
@@ -69,6 +74,8 @@
     jQuery(document).ready(function() {
         Metronic.init(); // init metronic core componets
         Layout.init(); // init layout
+        
+        ComponentsPickers.init();
         QuickSidebar.init() // init quick sidebar
         Index.init();
         Index.initDashboardDaterange();
@@ -80,6 +87,7 @@
         //Index.initMiniCharts();
         Index.initIntro();
         Tasks.initDashboardWidget();
+        
     });
 </script>
 <!-- END JAVASCRIPTS -->

@@ -3,7 +3,7 @@
     <div class="page-content">
         <!-- BEGIN PAGE HEADER-->
         <h3 class="page-title">
-            Cortes <small>para Pagos</small>
+            Usuarios <small>del Sistema</small>
         </h3>
         <div class="page-bar">
             <ul class="page-breadcrumb">
@@ -15,8 +15,8 @@
                     <i class="fa fa-angle-right"></i>
                 </li>
                 <li>
-                    <a href="<?php echo base_url('cut') ?>">
-                        Cortes
+                    <a href="<?php echo base_url('user') ?>">
+                        Usuarios
                     </a>
                 </li>                    
             </ul>
@@ -27,8 +27,8 @@
                     </button>
                     <ul class="dropdown-menu pull-right" role="menu">
                         <li>
-                            <a href="<?php echo base_url('cut/add') ?>">
-                                Agregar un Nuevo Corte
+                            <a href="<?php echo base_url('user/add') ?>">
+                                Agregar un Nuevo Registro
                             </a>
                         </li>
                     </ul>
@@ -54,7 +54,7 @@
                 <div class="portlet box green">
                     <div class="portlet-title">
                         <div class="caption">
-                            <i class="fa fa-cogs"></i>Listado de Cortes
+                            <i class="fa fa-cogs"></i>Listado de Usuarios
                         </div>
                         <div class="tools">
                             <a href="javascript:;" class="collapse">
@@ -63,7 +63,7 @@
                     </div>
                     <div class="portlet-body">
 
-                        <a href="<?php echo base_url('cut/add') ?>" class="btn blue">
+                        <a href="<?php echo base_url('user/add') ?>" class="btn blue">
                             Agregar Registro <i class="fa fa-plus"></i>
                         </a>
 
@@ -72,11 +72,11 @@
                                 <thead>
                                     <tr>
                                         <th>#</th>
-                                        <th>Nombre Administrativo</th>
-                                        <th>Dia de Pago</th>
-                                        <th>Dia de Inicio</th>
-                                        <th>Dia Final</th>
-                                        <th>Usuario Creador</th>
+                                        <th>Nombre</th>
+                                        <th>Documento</th>
+                                        <th>Correo</th>
+                                        <th>Telefonos</th>
+                                        <th>Rol</th>
                                         <th>Fecha de Creación</th>
                                         <th>Opciones</th>                                    
                                     </tr>
@@ -84,32 +84,32 @@
                                 <tbody>
                                     <?php
                                     $count = 1;
-                                    foreach ($cuts as $cut) {
+                                    foreach ($registros as $registro) {
                                         ?>
-                                        <tr <?php echo ($cut->CORTE_ESTADO == 0) ? 'class="danger"' : '' ?>>
+                                        <tr <?php echo ($registro->USUARIO_ESTADO == 0) ? 'class="danger"' : '' ?>>
                                             <td>
                                                 <?php echo $count; ?>
                                             </td>
                                             <td>
-                                                <?php echo $cut->CORTE_NOMBREADMIN; ?>
+                                                <?php echo $registro->USUARIO_NOMBRES.' '.$registro->USUARIO_APELLIDOS; ?>
                                             </td>
                                             <td>
-                                                <?php echo $cut->CORTE_DIAPAGO; ?>
+                                                <?php echo $registro->USUARIO_TIPODOCUMENTO.' '.$registro->USUARIO_NUMERODOCUMENTO; ?>
                                             </td>
                                             <td>
-                                                <?php echo $cut->CORTE_DIAINICIO; ?>
-                                            </td>
-                                            <td>
-                                                <?php echo $cut->CORTE_DIAFIN; ?>
-                                            </td>
-                                            <td>
-                                                <?php echo $cut->USUARIO_NOMBRES . ' ' . $cut->USUARIO_APELLIDOS; ?>
-                                            </td>
-                                            <td>
-                                                <?php echo $cut->CORTE_FECHACREACION; ?>
+                                                <?php echo $registro->USUARIO_CORREO; ?>
                                             </td>                                            
                                             <td>
-                                                <a href="<?php echo base_url('cut/edit/'.encrypt_id($cut->CORTE_ID)) ?>" class="btn default btn-xs purple">
+                                                <?php echo $registro->USUARIO_TELEFONOFIJO.' - '.$registro->USUARIO_CELULAR; ?>
+                                            </td>
+                                            <td>
+                                                <?php echo $registro->NOM_TIPO_USU; ?>
+                                            </td>
+                                            <td>
+                                                <?php echo $registro->USUARIO_FECHAINGRESO; ?>
+                                            </td>                                         
+                                            <td>
+                                                <a href="<?php echo base_url('user/edit/'.encrypt_id($registro->USUARIO_ID)) ?>" class="btn default btn-xs purple">
                                                     <i class="fa fa-edit"></i> 
                                                     Editar 
                                                 </a>                                              

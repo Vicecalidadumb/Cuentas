@@ -49,7 +49,8 @@ class Cut_model extends CI_Model {
                        CORTE_NOMBREADMIN = '{$data['CORTE_NOMBREADMIN']}', 
                        CORTE_DIAPAGO = '{$data['CORTE_DIAPAGO']}',
                        CORTE_DIAINICIO = '{$data['CORTE_DIAINICIO']}',
-                       CORTE_DIAFIN = '{$data['CORTE_DIAFIN']}'
+                       CORTE_DIAFIN = '{$data['CORTE_DIAFIN']}',
+                       CORTE_ESTADO = '{$data['CORTE_ESTADO']}'
                        WHERE
                        CORTE_ID = {$data['CORTE_ID']}
                        ";

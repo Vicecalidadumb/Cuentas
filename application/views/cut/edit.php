@@ -21,7 +21,7 @@
                     <i class="fa fa-angle-right"></i>
                 </li>
                 <li>
-                    <a href="<?php echo base_url('cut/edit') ?>">
+                    <a href="">
                         Editar
                     </a>
                 </li>                 
@@ -106,7 +106,22 @@
                                             Ingrese por favor un Dia Final del Corte para el nuevo registro.  
                                         </span>
                                     </div>
-                                </div>                                
+                                </div>  
+
+                                <div class="form-group">
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3">
+                                            Estado
+                                        </label>
+                                        <div class="col-md-9">
+                                            <?php echo form_dropdown('CORTE_ESTADO', $states, $cut[0]->CORTE_ESTADO, 'class="form-control"'); ?>
+                                            <span class="help-block">
+                                                Ingrese por favor un Estado para el Corte en el sistema.  
+                                            </span> 
+                                        </div>
+
+                                    </div>
+                                </div>                                 
 
 
                             </div>
@@ -189,13 +204,14 @@
                         $(element)
                                 .closest('.form-group').removeClass('has-error'); // set error class to the control group
                     },
-                    success: function(label) {
-                        label
-                                .closest('.form-group').removeClass('has-error'); // set success class to the control group
-                    },
+                    /*success: function(label) {
+                     label
+                     .closest('.form-group').removeClass('has-error'); // set success class to the control group
+                     },*/
                     submitHandler: function(form) {
                         success1.show();
                         error1.hide();
+                        $("#"+form1).submit();
                     }
                 });
             }

@@ -5,8 +5,13 @@ if (!defined('BASEPATH'))
 
 class Cut extends CI_Controller {
 
+    private $module_sigla;
+    
     public function __construct() {
         parent::__construct();
+        //DEFINIMOS EL NOMBRE DEL MODULO
+        $this->module_sigla = 'COR';        
+        
         $this->load->helper('miscellaneous');
         $this->load->helper('security');
         $this->load->model('cut_model');
@@ -14,6 +19,9 @@ class Cut extends CI_Controller {
     }
 
     public function index() {
+        //VALIDAR PERMISO DEL ROL
+        validation_permission_role($this->module_sigla, 'permission_view');       
+        
         $data['title'] = 'Universidad Manuela Beltran, Aplicativo de Cuentas - Cortes.';
         $data['content'] = 'cut/index';
         $data['cuts'] = $this->cut_model->get_all_cuts();
@@ -21,12 +29,18 @@ class Cut extends CI_Controller {
     }
 
     public function add() {
+        //VALIDAR PERMISO DEL ROL
+        validation_permission_role($this->module_sigla, 'permission_add');        
+        
         $data['title'] = 'Universidad Manuela Beltran, Aplicativo de Cuentas - Cortes.';
         $data['content'] = 'cut/add';
         $this->load->view('template/template', $data);
     }
 
     public function insert() {
+        //VALIDAR PERMISO DEL ROL
+        validation_permission_role($this->module_sigla, 'permission_add');        
+        
         //CARGAMOS LA LIBRERIA DE VALIDACION DE CODEIGNITER
         $this->load->library('form_validation');
         //DEFINIMOS LOS DELIMITADORES DE LOS MENSAJES DE ERROR - EN FORMATO HTML
@@ -67,7 +81,11 @@ class Cut extends CI_Controller {
     }
 
     public function edit($CORTE_ID) {
+        //VALIDAR PERMISO DEL ROL
+        validation_permission_role($this->module_sigla, 'permission_edit');          
+        
         $CORTE_ID = deencrypt_id($CORTE_ID);
+        $data['states'] = get_array_states();
         $data['title'] = 'Universidad Manuela Beltran, Aplicativo de Cuentas - Editar Cortes.';
         $data['content'] = 'cut/edit';
         $data['cut'] = $this->cut_model->get_cut_id($CORTE_ID);
@@ -75,6 +93,9 @@ class Cut extends CI_Controller {
     }
 
     public function update($CORTE_ID) {
+        //VALIDAR PERMISO DEL ROL
+        validation_permission_role($this->module_sigla, 'permission_edit');          
+        
         $CORTE_ID = deencrypt_id($CORTE_ID);
         //CARGAMOS LA LIBRERIA DE VALIDACION DE CODEIGNITER
         $this->load->library('form_validation');
@@ -90,6 +111,7 @@ class Cut extends CI_Controller {
 
         //SI LA VALIDACION RETORNA UN FALSE, CARGAMOS NUEVAMENTE LA VISTA, SI RETORNA TRUE GUARDAMOS
         if ($this->form_validation->run() == FALSE) {
+            $data['states'] = get_array_states();
             $data['title'] = 'Universidad Manuela Beltran, Aplicativo de Cuentas - Editar Cortes.';
             $data['content'] = 'cut/edit';
             $data['cut'] = $this->cut_model->get_cut_id($CORTE_ID);
@@ -101,7 +123,8 @@ class Cut extends CI_Controller {
                 'CORTE_DIAPAGO' => $this->input->post('CORTE_DIAPAGO', TRUE),
                 'CORTE_DIAINICIO' => $this->input->post('CORTE_DIAINICIO', TRUE),
                 'CORTE_DIAFIN' => $this->input->post('CORTE_DIAFIN', TRUE),
-                'CORTE_ID' => $CORTE_ID
+                'CORTE_ID' => $CORTE_ID,
+                'CORTE_ESTADO' => $this->input->post('CORTE_ESTADO', TRUE)
             );
             //ENVIAMOS EL ARRAY CON LOS DATOS AL MODELO Y GUARDAMOS EN $insert EL RESULTADO
             $insert = $this->cut_model->update_cut($data);
