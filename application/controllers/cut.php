@@ -10,7 +10,7 @@ class Cut extends CI_Controller {
     public function __construct() {
         parent::__construct();
         //DEFINIMOS EL NOMBRE DEL MODULO
-        $this->module_sigla = 'COR';        
+        $this->module_sigla = 'COR';    
         
         $this->load->helper('miscellaneous');
         $this->load->helper('security');

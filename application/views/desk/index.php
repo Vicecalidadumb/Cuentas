@@ -16,9 +16,18 @@
             </ul>
         </div>
         <!-- END PAGE HEADER-->
-
+        
         <div class="clearfix">
         </div>
+
+        <div class="col-md-12 col-sm-12">
+            <?php if ($this->session->flashdata('message')) { ?>
+                <div class="alert alert-<?php echo $this->session->flashdata('message_type'); ?>">
+                    <?php echo $this->session->flashdata('message'); ?>
+                </div>
+            <?php } ?>          
+        </div>         
+
         <div class="row ">
             <div class="col-md-12 col-sm-12">
                 <!-- BEGIN PORTLET-->

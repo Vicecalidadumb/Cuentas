@@ -4,7 +4,7 @@ if (!defined('BASEPATH'))
 
 class Config extends CI_Controller {
 
-   //private $module_sigla;
+   private $module_sigla;
 
    public function __construct() {
        parent::__construct();
