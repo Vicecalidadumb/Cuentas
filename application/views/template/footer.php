@@ -69,12 +69,15 @@
 <script type="text/javascript" src="<?php echo base_url('/assets/global/plugins/jquery-validation/js/messages_es.js'); ?>"></script>
 <script type="text/javascript" src="<?php echo base_url('/assets/global/plugins/jquery-validation/js/additional-methods.min.js'); ?>"></script>
 
+
+<script type="text/javascript" src="<?php echo base_url('/js/script_umb.js'); ?>"></script>
+
 <!-- END PAGE LEVEL SCRIPTS -->
 <script>
     jQuery(document).ready(function() {
         Metronic.init(); // init metronic core componets
         Layout.init(); // init layout
-        
+
         ComponentsPickers.init();
         QuickSidebar.init() // init quick sidebar
         Index.init();
@@ -87,7 +90,7 @@
         //Index.initMiniCharts();
         Index.initIntro();
         Tasks.initDashboardWidget();
-        
+
     });
 </script>
 <!-- END JAVASCRIPTS -->

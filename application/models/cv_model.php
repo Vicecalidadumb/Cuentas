@@ -21,17 +21,17 @@ class Cv_model extends CI_Model {
     public function get_user_documento($username) {
         $sql_string = "SELECT *
                       FROM {$this->db->dbprefix('usuarios')}
-                      WHERE USUARIO_NUMERODOCUMENTO = '{$username}'
-                      AND USUARIO_ESTADO=1";
+                      WHERE HV_NUMERODOCUMENTO = '{$username}'
+                      AND HV_ESTADO=1";
 
         $sql_query = $this->db->query($sql_string);
         return $sql_query->result();
     }
 
-    public function get_user_id_user($id_user) {
+    public function get_cv_id_cv($id_cv) {
         $SQL_string = "SELECT *
-                      FROM {$this->db->dbprefix('usuarios')}
-                      WHERE USUARIO_ID = $id_user";
+                      FROM {$this->db->dbprefix('hojasdevida')}
+                      WHERE HV_ID = $id_cv";
         //echo $SQL_string;
         $SQL_string_query = $this->db->query($SQL_string);
         return $SQL_string_query->result();
@@ -46,75 +46,70 @@ class Cv_model extends CI_Model {
         return $SQL_string_query->result();
     }
 
-    public function insert_user($data) {
-        $SQL_string = "INSERT INTO {$this->db->dbprefix('usuarios')}
+    public function insert_cv($data) {
+        $SQL_string = "INSERT INTO {$this->db->dbprefix('hojasdevida')}
                       (
-                        USUARIO_PASSWORD,
-                        USUARIO_NOMBRES,
-                        USUARIO_APELLIDOS,
-                        USUARIO_TIPODOCUMENTO,
-                        USUARIO_NUMERODOCUMENTO,
-                        USUARIO_CORREO,
-                        USUARIO_GENERO,
-                        USUARIO_FECHADENACIMIENTO,
-                        USUARIO_LUGARDENACIMIENTO,
-                        USUARIO_DIRECCIONRESIDENCIA,
-                        USUARIO_LUGARDERESIDENCIA,
-                        USUARIO_TELEFONOFIJO,
-                        USUARIO_CELULAR,
-                        ID_TIPO_USU
+                        HV_NOMBRES,
+                        HV_APELLIDOS,
+                        HV_TIPODOCUMENTO,
+                        HV_NUMERODOCUMENTO,
+                        HV_CORREO,
+                        HV_GENERO,
+                        HV_FECHADENACIMIENTO,
+                        HV_LUGARDENACIMIENTO,
+                        HV_DIRECCIONRESIDENCIA,
+                        HV_LUGARDERESIDENCIA,
+                        HV_TELEFONOFIJO,
+                        HV_CELULAR
                        )
-                      VALUES 
+                      VALUES
                        (
-                        '".make_hash($data['USUARIO_PASSWORD'])."',
-                        '{$data['USUARIO_NOMBRES']}',
-                        '{$data['USUARIO_APELLIDOS']}',
-                        '{$data['USUARIO_TIPODOCUMENTO']}',
-                        '{$data['USUARIO_NUMERODOCUMENTO']}',
-                        '{$data['USUARIO_CORREO']}',
-                        '{$data['USUARIO_GENERO']}',
-                        '{$data['USUARIO_FECHADENACIMIENTO']}',
-                        '{$data['USUARIO_LUGARDENACIMIENTO']}',
-                        '{$data['USUARIO_DIRECCIONRESIDENCIA']}',
-                        '{$data['USUARIO_LUGARDERESIDENCIA']}',
-                        '{$data['USUARIO_TELEFONOFIJO']}',
-                        '{$data['USUARIO_CELULAR']}',
-                        '{$data['ID_TIPO_USU']}'
+                        '{$data['HV_NOMBRES']}',
+                        '{$data['HV_APELLIDOS']}',
+                        '{$data['HV_TIPODOCUMENTO']}',
+                        '{$data['HV_NUMERODOCUMENTO']}',
+                        '{$data['HV_CORREO']}',
+                        '{$data['HV_GENERO']}',
+                        '{$data['HV_FECHADENACIMIENTO']}',
+                        '{$data['HV_LUGARDENACIMIENTO']}',
+                        '{$data['HV_DIRECCIONRESIDENCIA']}',
+                        '{$data['HV_LUGARDERESIDENCIA']}',
+                        '{$data['HV_TELEFONOFIJO']}',
+                        '{$data['HV_CELULAR']}'
                        )
                        ";
         return $this->db->query($SQL_string);
     }
 
-    public function update_user($data) {
-        $SQL_string = "UPDATE {$this->db->dbprefix('usuarios')} SET
-                        USUARIO_NOMBRES = '{$data['USUARIO_NOMBRES']}',
-                        USUARIO_APELLIDOS = '{$data['USUARIO_APELLIDOS']}',
-                        USUARIO_TIPODOCUMENTO = '{$data['USUARIO_TIPODOCUMENTO']}',
-                        USUARIO_NUMERODOCUMENTO = '{$data['USUARIO_NUMERODOCUMENTO']}',
-                        USUARIO_CORREO = '{$data['USUARIO_CORREO']}',
-                        USUARIO_GENERO = '{$data['USUARIO_GENERO']}',
-                        USUARIO_FECHADENACIMIENTO = '{$data['USUARIO_FECHADENACIMIENTO']}',
-                        USUARIO_LUGARDENACIMIENTO = '{$data['USUARIO_LUGARDENACIMIENTO']}',
-                        USUARIO_DIRECCIONRESIDENCIA = '{$data['USUARIO_DIRECCIONRESIDENCIA']}',
-                        USUARIO_LUGARDERESIDENCIA = '{$data['USUARIO_LUGARDERESIDENCIA']}',
-                        USUARIO_TELEFONOFIJO = '{$data['USUARIO_TELEFONOFIJO']}',
-                        USUARIO_CELULAR = '{$data['USUARIO_CELULAR']}',
-                        ID_TIPO_USU = '{$data['ID_TIPO_USU']}',
-                        USUARIO_ESTADO = '{$data['USUARIO_ESTADO']}'    
+    public function update_cv($data) {
+        $SQL_string = "UPDATE {$this->db->dbprefix('hojasdevida')} SET
+                        HV_NOMBRES = '{$data['HV_NOMBRES']}',
+                        HV_APELLIDOS = '{$data['HV_APELLIDOS']}',
+                        HV_TIPODOCUMENTO = '{$data['HV_TIPODOCUMENTO']}',
+                        HV_NUMERODOCUMENTO = '{$data['HV_NUMERODOCUMENTO']}',
+                        HV_CORREO = '{$data['HV_CORREO']}',
+                        HV_GENERO = '{$data['HV_GENERO']}',
+                        HV_FECHADENACIMIENTO = '{$data['HV_FECHADENACIMIENTO']}',
+                        HV_LUGARDENACIMIENTO = '{$data['HV_LUGARDENACIMIENTO']}',
+                        HV_DIRECCIONRESIDENCIA = '{$data['HV_DIRECCIONRESIDENCIA']}',
+                        HV_LUGARDERESIDENCIA = '{$data['HV_LUGARDERESIDENCIA']}',
+                        HV_TELEFONOFIJO = '{$data['HV_TELEFONOFIJO']}',
+                        HV_CELULAR = '{$data['HV_CELULAR']}',
+                        HV_ESTADO = '{$data['HV_ESTADO']}'    
                        WHERE
-                       USUARIO_ID = {$data['USUARIO_ID']}
+                       HV_ID = {$data['HV_ID']}
                        ";
-                       //echo $SQL_string;
+        //echo $SQL_string;
         return $SQL_string_query = $this->db->query($SQL_string);
     }
-    
-    public function update_user_password($user_password, $id_user){
+
+    public function update_user_password($user_password, $id_user) {
         $SQL_string = "UPDATE {$this->db->dbprefix('usuarios')} SET
-                       USUARIO_PASSWORD = '{$user_password}'
+                       HV_PASSWORD = '{$user_password}'
                        WHERE
-                       USUARIO_ID = $id_user
+                       HV_ID = $id_user
                        ";
-        return $SQL_string_query = $this->db->query($SQL_string);        
+        return $SQL_string_query = $this->db->query($SQL_string);
     }
 
 }

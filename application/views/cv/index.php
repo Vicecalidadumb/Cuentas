@@ -76,7 +76,7 @@
                                         <th>Documento</th>
                                         <th>Correo</th>
                                         <th>Telefonos</th>
-                                        <th>Rol</th>
+                                        <th>Profesion</th>
                                         <th>Fecha de Creación</th>
                                         <th>Opciones</th>                                    
                                     </tr>
@@ -86,33 +86,41 @@
                                     $count = 1;
                                     foreach ($registros as $registro) {
                                         ?>
-                                        <tr <?php echo ($registro->USUARIO_ESTADO == 0) ? 'class="danger"' : '' ?>>
+                                        <tr <?php echo ($registro->HV_ESTADO == 0) ? 'class="danger"' : '' ?>>
                                             <td>
                                                 <?php echo $count; ?>
                                             </td>
                                             <td>
-                                                <?php echo $registro->USUARIO_NOMBRES . ' ' . $registro->USUARIO_APELLIDOS; ?>
+                                                <?php echo $registro->HV_NOMBRES . ' ' . $registro->HV_APELLIDOS; ?>
                                             </td>
                                             <td>
-                                                <?php echo $registro->USUARIO_TIPODOCUMENTO . ' ' . $registro->USUARIO_NUMERODOCUMENTO; ?>
+                                                <?php echo $registro->HV_TIPODOCUMENTO . ' ' . $registro->HV_NUMERODOCUMENTO; ?>
                                             </td>
                                             <td>
-                                                <?php echo $registro->USUARIO_CORREO; ?>
+                                                <?php echo $registro->HV_CORREO; ?>
+                                            </td>
+                                            <td>
+                                                <?php echo $registro->HV_TELEFONOFIJO . ' - ' . $registro->HV_CELULAR; ?>
+                                            </td>
+                                            <td>
+                                                ...
                                             </td>                                            
                                             <td>
-                                                <?php echo $registro->USUARIO_TELEFONOFIJO . ' - ' . $registro->USUARIO_CELULAR; ?>
-                                            </td>
-                                            <td>
-                                                <?php echo $registro->NOM_TIPO_USU; ?>
-                                            </td>
-                                            <td>
-                                                <?php echo $registro->USUARIO_FECHAINGRESO; ?>
+                                                <?php echo $registro->HV_FECHAINGRESO; ?>
                                             </td>                                         
                                             <td>
-                                                <a href="<?php echo base_url('user/edit/' . encrypt_id($registro->USUARIO_ID)) ?>" class="btn default btn-xs purple">
+                                                <a href="<?php echo base_url('cv/edit/' . encrypt_id($registro->HV_ID)) ?>" class="btn default btn-xs purple">
                                                     <i class="fa fa-edit"></i> 
-                                                    Editar 
-                                                </a>                                              
+                                                    Editar Info. Basica
+                                                </a> 
+                                                <a href="<?php echo base_url('cv/edit/' . encrypt_id($registro->HV_ID)) ?>" class="btn default btn-xs yellow">
+                                                    <i class="fa fa-folder-open"></i> 
+                                                    Gestionar Archivos 
+                                                </a>
+                                                <a href="<?php echo base_url('cv/edit/' . encrypt_id($registro->HV_ID)) ?>" class="btn default btn-xs red">
+                                                    <i class="fa fa-eye"></i> 
+                                                    Ver Info. 
+                                                </a>                                                 
                                             </td>                                        
                                         </tr>
                                         <?php

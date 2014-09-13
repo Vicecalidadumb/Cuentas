@@ -116,5 +116,25 @@ class User_model extends CI_Model {
                        ";
         return $SQL_string_query = $this->db->query($SQL_string);        
     }
+    
+    public function get_states(){
+        $SQL_string = "SELECT *
+                      FROM {$this->db->dbprefix('departamentos')}";
+        //echo $SQL_string;
+        $SQL_string_query = $this->db->query($SQL_string);
+        return $SQL_string_query->result();        
+    }
+    
+    public function get_citys($id_state){
+        $where = '';
+        if($id_state!='ALL'){
+            $where = " AND DEPARTAMENTO_ID=$id_state";
+        }
+        $SQL_string = "SELECT CONCAT(DEPARTAMENTO_ID,MUNICIPIO_ID) AS MUNICIPIO_ID,MUNICIPIO_NOMBRE
+                      FROM {$this->db->dbprefix('municipios')} WHERE 1=1 $where";
+        //echo $SQL_string;
+        $SQL_string_query = $this->db->query($SQL_string);
+        return $SQL_string_query->result();        
+    }
 
 }

@@ -43,8 +43,8 @@ class User extends CI_Controller {
     public function insert() {
         //VALIDAR PERMISO DEL ROL
         validation_permission_role($this->module_sigla, 'permission_add');
-        
-        
+
+
         //CARGAMOS LA LIBRERIA DE VALIDACION DE CODEIGNITER
         $this->load->library('form_validation');
         //DEFINIMOS LOS DELIMITADORES DE LOS MENSAJES DE ERROR - EN FORMATO HTML
@@ -95,8 +95,8 @@ class User extends CI_Controller {
 
     public function edit($id_user) {
         //VALIDAR PERMISO DEL ROL
-        validation_permission_role($this->module_sigla, 'permission_edit');        
-        
+        validation_permission_role($this->module_sigla, 'permission_edit');
+
         $id_user = deencrypt_id($id_user);
         $data['registro'] = $this->user_model->get_user_id_user($id_user);
         if (count($data['registro']) > 0) {
@@ -114,8 +114,8 @@ class User extends CI_Controller {
 
     public function update($id_user) {
         //VALIDAR PERMISO DEL ROL
-        validation_permission_role($this->module_sigla, 'permission_edit');         
-        
+        validation_permission_role($this->module_sigla, 'permission_edit');
+
         $id_user = deencrypt_id($id_user);
 
         //validation_permission_role($this->module_sigla, 'permission_edit');
@@ -183,25 +183,25 @@ class User extends CI_Controller {
 
     /*     * ***********************AJAX FUNCTIONS************************** */
 
-//    public function check_user_username_ajax() {
-//        validate_login($this->session->userdata('logged_in'));
-//
-//        if ($this->input->is_ajax_request()) {
-//            $user_username = $this->input->post('user_username');
-//            if ($this->input->post('user_id') > 0) {
-//                $user_id = $this->input->post('user_id');
-//                $user = $this->user_model->get_user_username_userid($user_username, $user_id);
-//            } else {
-//                $user = $this->user_model->get_user_username($user_username);
-//            }
-//            if (sizeof($user) > 0) {
-//                echo 'false';
-//            } else {
-//                echo 'true';
-//            }
-//        } else {
-//            echo 'Acceso no utorizado';
-//        }
-//    }
+    public function get_citys() {
+        validate_login($this->session->userdata('logged_in'));
+
+        if ($this->input->is_ajax_request()) {
+            $id_state = $this->input->post('id1');
+            $id_select = $this->input->post('id2');
+            if ($this->input->post('id1') != '') {
+                $citys = get_dropdown($this->user_model->get_citys($id_state), 'MUNICIPIO_ID', 'MUNICIPIO_NOMBRE');
+                if (count($citys) > 0) {
+                    echo form_dropdown($id_select, $citys, '', 'id="' . $id_select . '" class="form-control"');
+                } else {
+                    echo form_dropdown($id_select, array("" => "--SELECCIONE PRIMERO UN DEPARTAMENTO--"), '', 'id="' . $id_select . '" class="form-control"');
+                }
+            } else {
+                echo form_dropdown($id_select, array("" => "--SELECCIONE PRIMERO UN DEPARTAMENTO--"), '', 'id="' . $id_select . '" class="form-control"');
+            }
+        } else {
+            echo 'Acceso no utorizado';
+        }
+    }
 
 }

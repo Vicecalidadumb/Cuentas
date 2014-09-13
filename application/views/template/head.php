@@ -57,5 +57,9 @@ License: You must have a valid license purchased only from themeforest(the above
 <!-- END THEME STYLES UMB!! -->
 
 
+<script>
+    var base_url_js = '<?php echo base_url(); ?>';
+</script>
+
 </head>
 <!-- END HEAD -->
