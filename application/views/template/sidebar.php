@@ -63,12 +63,12 @@
             <?php endif; ?>
 
             <?php if (know_permission_role('HVI', 'permission_view')): ?>
-                <li class="<?php echo strstr($content, '---') ? 'active open' : ''; ?>">
+                <li class="<?php echo strstr($content, 'cv') ? 'active open' : ''; ?>">
                     <a href="javascript:;">
                         <i class="icon-doc"></i>
                         <span class="title">Admin de Hojas de Vida</span>
-                        <?php echo strstr($content, '--') ? '<span class="selected"></span>' : ''; ?>
-                        <span class="arrow "></span>
+                        <?php echo strstr($content, 'cv') ? '<span class="selected"></span>' : ''; ?>
+                        <span class="arrow <?php echo strstr($content, 'cv') ? 'open' : ''; ?>"></span>
                     </a>
                     <ul class="sub-menu">
                         <li>
