@@ -72,13 +72,13 @@
                     </a>
                     <ul class="sub-menu">
                         <li>
-                            <a href="<?php echo base_url(''); ?>">
+                            <a href="<?php echo base_url('cv'); ?>">
                                 Listado de Hojas de Vida
                             </a>
                         </li>
                         <?php if (know_permission_role('HVI', 'permission_add')): ?>
                             <li>
-                                <a href="<?php echo base_url(''); ?>">
+                                <a href="<?php echo base_url('cv/add'); ?>">
                                     Agregar Hoja de Vida
                                 </a>
                             </li>

@@ -3,7 +3,7 @@
 if (!defined('BASEPATH'))
     exit('No direct script access allowed');
 
-class User_model extends CI_Model {
+class Cv_model extends CI_Model {
 
     public function get_all_cv($state = 1) {
         $Where = '';

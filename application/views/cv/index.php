@@ -3,7 +3,7 @@
     <div class="page-content">
         <!-- BEGIN PAGE HEADER-->
         <h3 class="page-title">
-            Hojas de <small>Vida</small>
+            Hojas <small>de Vida</small>
         </h3>
         <div class="page-bar">
             <ul class="page-breadcrumb">
@@ -54,7 +54,7 @@
                 <div class="portlet box green">
                     <div class="portlet-title">
                         <div class="caption">
-                            <i class="fa fa-cogs"></i>Listado de Usuarios
+                            <i class="fa fa-cogs"></i>Listado de Hojas de Vida
                         </div>
                         <div class="tools">
                             <a href="javascript:;" class="collapse">
