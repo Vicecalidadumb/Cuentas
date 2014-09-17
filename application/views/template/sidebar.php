@@ -88,21 +88,22 @@
             <?php endif; ?>
 
             <?php if (know_permission_role('CON', 'permission_view')): ?>
-                <li class="<?php echo strstr($content, '---') ? 'active open' : ''; ?>">
+                <li class="<?php echo strstr($content, 'contract') ? 'active open' : ''; ?>">
                     <a href="javascript:;">
                         <i class="icon-notebook"></i>
                         <span class="title">Contratos</span>
-                        <span class="arrow "></span>
+                        <?php echo strstr($content, 'contract') ? '<span class="selected"></span>' : ''; ?>
+                        <span class="arrow <?php echo strstr($content, 'contract') ? 'open' : ''; ?>"></span>
                     </a>
                     <ul class="sub-menu">
                         <li>
-                            <a href="<?php echo base_url(''); ?>">
+                            <a href="<?php echo base_url('contract'); ?>">
                                 Listado de Contratos
                             </a>
                         </li>
                         <?php if (know_permission_role('CON', 'permission_add')): ?>
                             <li>
-                                <a href="<?php echo base_url(''); ?>">
+                                <a href="<?php echo base_url('contract/add'); ?>">
                                     Agregar Contrato
                                 </a>
                             </li>
@@ -132,7 +133,7 @@
                             </li> 
                         <?php endif; ?>
                     </ul>
-                </li> 
+                </li>
             <?php endif; ?>
 
             <?php if (know_permission_role('DCO', 'permission_view')): ?>
