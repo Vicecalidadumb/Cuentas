@@ -16,7 +16,7 @@
             <li class="<?php echo strstr($content, 'desk') ? 'active open' : ''; ?>">
                 <a href="<?php echo base_url('desk'); ?>">
                     <i class="icon-home"></i>
-                    <span class="title">Inicio</span>
+                    <span class="title">Inicio....</span>
                 </a>
             </li>
 
