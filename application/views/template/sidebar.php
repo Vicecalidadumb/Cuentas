@@ -31,7 +31,7 @@
                     <ul class="sub-menu">
                         <li>
                             <a href="<?php echo base_url('user'); ?>">
-                                Listado de Usuarios
+                                Listado de Usuarios.....
                             </a>
                         </li>
                         <?php if (know_permission_role('USU', 'permission_add')): ?>

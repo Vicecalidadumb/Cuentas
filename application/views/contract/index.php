@@ -113,11 +113,11 @@
                                                 <?php echo $registro->PROYECTO_NOMBRE; ?>
                                             </td>                                              
                                             <td>
-                                                <a href="<?php echo base_url('contract/edit/' . encrypt_id($registro->HV_ID)) ?>" class="btn default btn-xs purple">
+                                                <a href="<?php echo base_url('contract/edit/' . encrypt_id($registro->CONTRATO_ID)) ?>" class="btn default btn-xs purple">
                                                     <i class="fa fa-edit"></i> 
                                                     Editar Info. Basica
                                                 </a>
-                                                <a href="<?php echo base_url('contract/documents/' . encrypt_id($registro->HV_ID)) ?>" class="btn default btn-xs yellow">
+                                                <a href="<?php echo base_url('contract/documents/' . encrypt_id($registro->CONTRATO_ID)) ?>" class="btn default btn-xs yellow">
                                                     <i class="fa fa-folder-open"></i> 
                                                     Ver Info. / Gestionar Archivos 
                                                 </a>                                               

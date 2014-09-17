@@ -3,7 +3,7 @@
     <div class="page-content">
         <!-- BEGIN PAGE HEADER-->
         <h3 class="page-title">
-            Hojas <small>de Vida</small>
+            Contratos
         </h3>
         <div class="page-bar">
             <ul class="page-breadcrumb">
@@ -15,8 +15,8 @@
                     <i class="fa fa-angle-right"></i>
                 </li>
                 <li>
-                    <a href="<?php echo base_url('cv') ?>">
-                        Hojas de Vida
+                    <a href="<?php echo base_url('contract') ?>">
+                        Contratos
                     </a>
                     <i class="fa fa-angle-right"></i>
                 </li>
@@ -48,7 +48,7 @@
                 <div class="portlet box purple">
                     <div class="portlet-title">
                         <div class="caption">
-                            <i class="fa fa-gift"></i>Editar Hoja de Vida
+                            <i class="fa fa-gift"></i>Editar Contrato
                         </div>
                         <div class="tools">
                             <a href="javascript:;" class="collapse">
@@ -57,96 +57,39 @@
                     </div>
                     <div class="portlet-body form">
                         <!-- BEGIN FORM-->
-                        <form id="update_cv" action="<?php echo base_url('cv/update/' . encrypt_id($registro[0]->HV_ID)); ?>" method="post" class="form-horizontal form-row-seperated">
+                        <form id="update_contract" action="<?php echo base_url('contract/update/' . encrypt_id($registro[0]->CONTRATO_ID)); ?>" method="post" class="form-horizontal form-row-seperated">
                             <div class="form-body">
 
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label class="control-label col-md-3">
-                                            Nombres
+                                            Tipo de Contrato
+                                        </label>
+                                        <div class="col-md-9">
+                                            <?php echo form_dropdown('TIPOCONTRATO_ID', $typecontracts, set_value('TIPOCONTRATO_ID'), 'class="form-control"'); ?>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3">
+                                            Hoja de Vida
+                                        </label>
+                                        <div class="col-md-9">
+                                            <?php echo form_dropdown('HV_ID', $cvs, set_value('HV_ID'), 'class="form-control"'); ?>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3">
+                                            Fecha de Inicio
                                             <span class="required" aria-required="true">*</span>
                                         </label>
                                         <div class="col-md-9">
-                                            <input type="text" name="HV_NOMBRES" value="<?php echo $registro[0]->HV_NOMBRES; ?>" id="HV_NOMBRES" placeholder="Nombres" class="form-control">
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label class="control-label col-md-3">
-                                            Apellidos
-                                            <span class="required" aria-required="true">*</span>
-                                        </label>
-                                        <div class="col-md-9">
-                                            <input type="text" name="HV_APELLIDOS" value="<?php echo $registro[0]->HV_APELLIDOS; ?>" id="HV_APELLIDOS" placeholder="Apellidos" class="form-control">
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label class="control-label col-md-3">
-                                            Tipo de Documento
-                                        </label>
-                                        <div class="col-md-9">
-                                            <?php echo form_dropdown('HV_TIPODOCUMENTO', array("CC" => "CC"), $registro[0]->HV_TIPODOCUMENTO, 'class="form-control"'); ?>
-                                        </div>
-                                    </div>  
-                                </div>
-
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label class="control-label col-md-3">
-                                            Documento
-                                            <span class="required" aria-required="true">*</span>
-                                        </label>
-                                        <div class="col-md-9">
-                                            <input type="text" name="HV_NUMERODOCUMENTO" value="<?php echo $registro[0]->HV_NUMERODOCUMENTO; ?>" id="HV_NUMERODOCUMENTO" placeholder="Documento" class="form-control">
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label class="control-label col-md-3">
-                                            Correo Electronico
-                                        </label>
-                                        <div class="col-md-9">
-                                            <input type="text" name="HV_CORREO" value="<?php echo $registro[0]->HV_CORREO; ?>" id="HV_CORREO" placeholder="Correo Electronico" class="form-control">
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label class="control-label col-md-3">
-                                            Genero
-                                        </label>
-                                        <div class="col-md-9">
-                                            <?php echo form_dropdown('HV_GENERO', array("F" => "Femenino", "M" => "Masculino"), $registro[0]->HV_GENERO, 'class="form-control"'); ?>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label class="control-label col-md-3">
-                                            Fecha de Nac
-                                        </label>
-                                        <div class="col-md-9">
-                                            <input name="HV_FECHADENACIMIENTO" value="<?php echo $registro[0]->HV_FECHADENACIMIENTO; ?>" id="HV_FECHADENACIMIENTO" class="form-control form-control-inline input-medium date-picker" size="16" type="text"/>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label class="control-label col-md-3">
-                                            Direccion de Resi.
-                                        </label>
-                                        <div class="col-md-9">
-                                            <input type="text" name="HV_DIRECCIONRESIDENCIA" value="<?php echo $registro[0]->HV_DIRECCIONRESIDENCIA; ?>" id="HV_DIRECCIONRESIDENCIA" placeholder="Direccion de Residencia" class="form-control">
+                                            <input name="CONTRATO_FECHAINI" value="<?php echo set_value('CONTRATO_FECHAINI') ?>" id="CONTRATO_FECHAINI" class="form-control form-control-inline input-medium date-picker" size="16" type="text"/>
                                         </div>
                                     </div>
                                 </div> 
@@ -154,56 +97,23 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label class="control-label col-md-3">
-                                            Departamento de Nacimiento
+                                            Fecha de Final
+                                            <span class="required" aria-required="true">*</span>
                                         </label>
                                         <div class="col-md-9">
-                                            <?php echo form_dropdown('HV_LUGARDENACIMIENTO_DTO', $depar, '', 'onchange="get_city(this.value,\'HV_LUGARDENACIMIENTO\')"  id="HV_LUGARDENACIMIENTO_DTO" class="form-control"'); ?>
+                                            <input name="CONTRATO_FECHAFIN" value="<?php echo set_value('CONTRATO_FECHAFIN') ?>" id="CONTRATO_FECHAFIN" class="form-control form-control-inline input-medium date-picker" size="16" type="text"/>
                                         </div>
                                     </div>
                                 </div>                                
 
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label class="control-label col-md-3">
-                                            Municipio de Nacimiento
+                                        <label class="control-label col-md-7">
+                                            Valor del contrato (Sin Puntos Ni Comas)
+                                            <span class="required" aria-required="true">*</span>
                                         </label>
-                                        <div class="col-md-9" id='space_HV_LUGARDENACIMIENTO'>
-                                            <?php echo form_dropdown('HV_LUGARDENACIMIENTO', $citys, $registro[0]->HV_LUGARDENACIMIENTO, 'id="HV_LUGARDENACIMIENTO" class="form-control"'); ?>
-                                        </div>
-                                    </div>
-                                </div>
-                                
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label class="control-label col-md-3">
-                                            Departamento de Residencia
-                                        </label>
-                                        <div class="col-md-9">
-                                            <?php echo form_dropdown('HV_LUGARDERESIDENCIA_DTO', $depar, '', 'onchange="get_city(this.value,\'HV_LUGARDERESIDENCIA\')" id="HV_LUGARDERESIDENCIA_DTO" class="form-control"'); ?>
-                                        </div>
-                                    </div>
-                                </div>                                
-
-
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label class="control-label col-md-3">
-                                            Municipio de Residencia
-                                        </label>
-                                        <div class="col-md-9" id='space_HV_LUGARDERESIDENCIA'>
-                                            <?php echo form_dropdown('HV_LUGARDERESIDENCIA', $citys, $registro[0]->HV_LUGARDERESIDENCIA, 'id="HV_LUGARDERESIDENCIA" class="form-control"'); ?>
-                                        </div>
-                                    </div>
-                                </div> 
-
-
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label class="control-label col-md-3">
-                                            Tele. Fijo
-                                        </label>
-                                        <div class="col-md-9">
-                                            <input type="text" name="HV_TELEFONOFIJO" value="<?php echo $registro[0]->HV_TELEFONOFIJO; ?>" id="HV_TELEFONOFIJO" placeholder="Telefono Fijo" class="form-control">
+                                        <div class="col-md-5">
+                                            <input type="text" name="CONTRATO_VALOR" value="<?php echo set_value('CONTRATO_VALOR') ?>" id="CONTRATO_VALOR" placeholder="Valor del contrato" class="form-control">
                                         </div>
                                     </div>
                                 </div>
@@ -211,44 +121,20 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label class="control-label col-md-3">
-                                            Celular
+                                            Proyecto
                                         </label>
                                         <div class="col-md-9">
-                                            <input type="text" name="HV_CELULAR" value="<?php echo $registro[0]->HV_CELULAR; ?>" id="HV_CELULAR" placeholder="Celular" class="form-control">
+                                            <?php echo form_dropdown('PROYECTO_ID', $proyects, set_value('PROYECTO_ID'), 'class="form-control"'); ?>
                                         </div>
                                     </div>
-                                </div> 
-
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <div class="form-group">
-                                            <label class="control-label col-md-3">
-                                                Estado
-                                            </label>
-                                            <div class="col-md-9">
-                                                <?php echo form_dropdown('HV_ESTADO', $states, $registro[0]->HV_ESTADO, 'class="form-control"'); ?>
-                                            </div>
-                                        </div>
-                                    </div> 
-                                </div>
-                                
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label class="control-label col-md-3">
-                                            Profesi&oacute;n
-                                        </label>
-                                        <div class="col-md-9">
-                                            <input type="text" name="HV_PROFESION" value="<?php echo $registro[0]->HV_PROFESION ?>" id="HV_PROFESION" placeholder="Profesion" class="form-control">
-                                        </div>
-                                    </div>
-                                </div>                                
+                                </div>                             
 
                             </div>
                             <div class="form-actions">
                                 <div class="row">
                                     <div class="col-md-offset-3 col-md-9">
                                         <button type="submit" class="btn green">Guardar</button>
-                                        <a href="<?php echo base_url('cv') ?>">
+                                        <a href="<?php echo base_url('contract') ?>">
                                             <button type="button" class="btn default">Cancelar</button>
                                         </a>
                                     </div>
@@ -272,7 +158,7 @@
                 // for more info visit the official plugin documentation: 
                 // http://docs.jquery.com/Plugins/Validation
 
-                var form1 = $('#update_cv');
+                var form1 = $('#update_contract');
                 var error1 = $('.alert-danger', form1);
                 var success1 = $('.alert-success', form1);
 

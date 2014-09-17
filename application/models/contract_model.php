@@ -57,11 +57,16 @@ class Contract_model extends CI_Model {
         return $sql_query->result();
     }
 
-    public function get_cv_id_cv($id_cv) {
+    public function get_contract_id_contract($id_contract) {
         $SQL_string = "SELECT *
-                      FROM {$this->db->dbprefix('hojasdevida')} h, {$this->db->dbprefix('municipios')} m
-                      WHERE HV_ID = $id_cv AND CONCAT(m.DEPARTAMENTO_ID,m.MUNICIPIO_ID) = h.HV_LUGARDERESIDENCIA";
-        //echo $SQL_string;
+                      FROM {$this->db->dbprefix('contratos')} c, "
+                . "{$this->db->dbprefix('hojasdevida')} h, "
+                . "{$this->db->dbprefix('tipo_contrato')} t,
+                    {$this->db->dbprefix('proyectos')} p
+                      WHERE c.HV_ID = h.HV_ID AND t.TIPOCONTRATO_ID = c.TIPOCONTRATO_ID  AND p.PROYECTO_ID = c.PROYECTO_ID
+                      AND c.CONTRATO_ID = $id_contract
+                      ORDER BY h.HV_NOMBRES";
+        echo $SQL_string;
         $SQL_string_query = $this->db->query($SQL_string);
         return $SQL_string_query->result();
     }

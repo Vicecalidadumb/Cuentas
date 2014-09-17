@@ -94,15 +94,12 @@ class Contract extends CI_Controller {
         $id_contract = deencrypt_id($id_contract);
         $data['registro'] = $this->contract_model->get_contract_id_contract($id_contract);
         if (count($data['registro']) > 0) {
-            $data['depar'] = get_dropdown($this->user_model->get_states(), 'DEPARTAMENTO_ID', 'DEPARTAMENTO_NOMBRE');
-            $data['depar'][] = '-SELECCIONE UN DEPARTAMENTO-';
-            asort($data['depar']);
 
-            $data['citys'] = get_dropdown($this->user_model->get_citys('ALL'), 'MUNICIPIO_ID', 'MUNICIPIO_NOMBRE');
+            $data['typecontracts'] = get_dropdown($this->contract_model->get_typecontracts(), 'TIPOCONTRATO_ID', 'TIPOCONTRATO_NOMBRE');
+            $data['cvs'] = get_dropdown($this->contract_model->get_cvs(), 'HV_ID', 'HV_NOMBRES');
+            $data['proyects'] = get_dropdown($this->contract_model->get_proyects(), 'PROYECTO_ID', 'PROYECTO_NOMBRE');
 
-            $data['states'] = get_array_states();
-
-            $data['title'] = 'Universidad Manuela Beltran, Aplicativo de Cuentas - Modificar Hojas de Vida.';
+            $data['title'] = 'Universidad Manuela Beltran, Aplicativo de Cuentas - Modificar Contrato.';
             $data['content'] = 'contract/edit';
             $this->load->view('template/template', $data);
         } else {
