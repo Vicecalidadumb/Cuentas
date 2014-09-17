@@ -28,10 +28,46 @@ class Cv_model extends CI_Model {
         return $sql_query->result();
     }
 
+    public function get_professions() {
+        $sql_string = "SELECT *
+                      FROM {$this->db->dbprefix('profesiones')}";
+
+        $sql_query = $this->db->query($sql_string);
+        return $sql_query->result();
+    }
+
     public function get_cv_id_cv($id_cv) {
         $SQL_string = "SELECT *
-                      FROM {$this->db->dbprefix('hojasdevida')}
-                      WHERE HV_ID = $id_cv";
+                      FROM {$this->db->dbprefix('hojasdevida')} h, {$this->db->dbprefix('municipios')} m
+                      WHERE HV_ID = $id_cv AND CONCAT(m.DEPARTAMENTO_ID,m.MUNICIPIO_ID) = h.HV_LUGARDERESIDENCIA";
+        //echo $SQL_string;
+        $SQL_string_query = $this->db->query($SQL_string);
+        return $SQL_string_query->result();
+    }
+
+    public function get_cvdocuments_id_cv($id_cv) {
+        $SQL_string = "SELECT *
+                      FROM {$this->db->dbprefix('hojasdevida')} h, "
+                . "{$this->db->dbprefix('municipios')} m, "
+                . "{$this->db->dbprefix('documento_hv')} d, "
+                . "{$this->db->dbprefix('tipo_documento')} t
+                      WHERE h.HV_ID = $id_cv "
+                . "AND CONCAT(m.DEPARTAMENTO_ID,m.MUNICIPIO_ID) = h.HV_LUGARDERESIDENCIA "
+                . "AND d.HV_ID = h.HV_ID AND t.TIPODOCUMENTO_ID = d.TIPODOCUMENTO_ID";
+        //echo $SQL_string;
+        $SQL_string_query = $this->db->query($SQL_string);
+        return $SQL_string_query->result();
+    }
+
+    public function get_document_cv($id_document) {
+        $SQL_string = "SELECT *
+                      FROM {$this->db->dbprefix('hojasdevida')} h, "
+                . "{$this->db->dbprefix('municipios')} m, "
+                . "{$this->db->dbprefix('documento_hv')} d, "
+                . "{$this->db->dbprefix('tipo_documento')} t
+                      WHERE d.DOCUMENTOHV_ID = $id_document "
+                . "AND CONCAT(m.DEPARTAMENTO_ID,m.MUNICIPIO_ID) = h.HV_LUGARDERESIDENCIA "
+                . "AND d.HV_ID = h.HV_ID AND t.TIPODOCUMENTO_ID = d.TIPODOCUMENTO_ID";
         //echo $SQL_string;
         $SQL_string_query = $this->db->query($SQL_string);
         return $SQL_string_query->result();
@@ -60,7 +96,8 @@ class Cv_model extends CI_Model {
                         HV_DIRECCIONRESIDENCIA,
                         HV_LUGARDERESIDENCIA,
                         HV_TELEFONOFIJO,
-                        HV_CELULAR
+                        HV_CELULAR,
+                        HV_PROFESION
                        )
                       VALUES
                        (
@@ -75,7 +112,8 @@ class Cv_model extends CI_Model {
                         '{$data['HV_DIRECCIONRESIDENCIA']}',
                         '{$data['HV_LUGARDERESIDENCIA']}',
                         '{$data['HV_TELEFONOFIJO']}',
-                        '{$data['HV_CELULAR']}'
+                        '{$data['HV_CELULAR']}',
+                        '{$data['HV_PROFESION']}'
                        )
                        ";
         return $this->db->query($SQL_string);
@@ -95,7 +133,8 @@ class Cv_model extends CI_Model {
                         HV_LUGARDERESIDENCIA = '{$data['HV_LUGARDERESIDENCIA']}',
                         HV_TELEFONOFIJO = '{$data['HV_TELEFONOFIJO']}',
                         HV_CELULAR = '{$data['HV_CELULAR']}',
-                        HV_ESTADO = '{$data['HV_ESTADO']}'    
+                        HV_ESTADO = '{$data['HV_ESTADO']}',
+                        HV_PROFESION = '{$data['HV_PROFESION']}'
                        WHERE
                        HV_ID = {$data['HV_ID']}
                        ";
@@ -110,6 +149,35 @@ class Cv_model extends CI_Model {
                        HV_ID = $id_user
                        ";
         return $SQL_string_query = $this->db->query($SQL_string);
+    }
+
+    public function get_typedocuments() {
+        $SQL_string = "SELECT *
+                      FROM {$this->db->dbprefix('tipo_documento')}";
+        //echo $SQL_string;
+        $SQL_string_query = $this->db->query($SQL_string);
+        return $SQL_string_query->result();
+    }
+
+    public function insert_document($data) {
+        $SQL_string = "INSERT INTO {$this->db->dbprefix('documento_hv')}
+                      (
+                        HV_ID,
+                        TIPODOCUMENTO_ID,
+                        DOCUMENTOHV_OBSERVACION,
+                        DOCUMENTOHV_IDCREADOR,
+                        DOCUMENTOHV_NOMBRE
+                       )
+                      VALUES
+                       (
+                        '{$data['HV_ID']}',
+                        '{$data['TIPODOCUMENTO_ID']}',
+                        '{$data['DOCUMENTOHV_OBSERVACION']}',
+                        '{$data['DOCUMENTOHV_IDCREADOR']}',
+                        '{$data['DOCUMENTOHV_NOMBRE']}'
+                       )
+                       ";
+        return $this->db->query($SQL_string);
     }
 
 }

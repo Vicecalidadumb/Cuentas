@@ -231,6 +231,17 @@
                                         </div>
                                     </div> 
                                 </div>
+                                
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3">
+                                            Profesi&oacute;n
+                                        </label>
+                                        <div class="col-md-9">
+                                            <input type="text" name="HV_PROFESION" value="<?php echo $registro[0]->HV_PROFESION ?>" id="HV_PROFESION" placeholder="Profesion" class="form-control">
+                                        </div>
+                                    </div>
+                                </div>                                
 
                             </div>
                             <div class="form-actions">

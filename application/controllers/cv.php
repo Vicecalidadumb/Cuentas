@@ -36,6 +36,8 @@ class Cv extends CI_Controller {
         $data['states'] = get_dropdown($this->user_model->get_states(), 'DEPARTAMENTO_ID', 'DEPARTAMENTO_NOMBRE');
         $data['states'][] = '-SELECCIONE UN DEPARTAMENTO-';
         asort($data['states']);
+        
+        $data['professions'] = get_dropdown($this->cv_model->get_professions(), 'PROFESION_ID', 'PROFESION_NOMBRE');
 
         $data['title'] = 'Universidad Manuela Beltran, Aplicativo de Cuentas - Nueva Hoja de Vida.';
         $data['content'] = 'cv/add';
@@ -78,7 +80,8 @@ class Cv extends CI_Controller {
                 'HV_DIRECCIONRESIDENCIA' => $this->input->post('HV_DIRECCIONRESIDENCIA', TRUE),
                 'HV_LUGARDERESIDENCIA' => $this->input->post('HV_LUGARDERESIDENCIA', TRUE),
                 'HV_TELEFONOFIJO' => $this->input->post('HV_TELEFONOFIJO', TRUE),
-                'HV_CELULAR' => $this->input->post('HV_CELULAR', TRUE)
+                'HV_CELULAR' => $this->input->post('HV_CELULAR', TRUE),
+                'HV_PROFESION' => $this->input->post('HV_PROFESION', TRUE)
             );
 
             $insert = $this->cv_model->insert_cv($data);
@@ -110,6 +113,98 @@ class Cv extends CI_Controller {
             $data['title'] = 'Universidad Manuela Beltran, Aplicativo de Cuentas - Modificar Hojas de Vida.';
             $data['content'] = 'cv/edit';
             $this->load->view('template/template', $data);
+        } else {
+            $this->session->set_flashdata(array('message' => 'Error al Consultar el Registro', 'message_type' => 'warning'));
+            redirect('cv', 'refresh');
+        }
+    }
+
+    public function documents($id_cv) {
+        //VALIDAR PERMISO DEL ROL
+        validation_permission_role($this->module_sigla, 'permission_edit');
+
+        $id_cv = deencrypt_id($id_cv);
+        $data['registro'] = $this->cv_model->get_cv_id_cv($id_cv);
+        if (count($data['registro']) > 0) {
+            $data['documents'] = $this->cv_model->get_cvdocuments_id_cv($id_cv);
+            $data['typedocuments'] = get_dropdown($this->cv_model->get_typedocuments(), 'TIPODOCUMENTO_ID', 'TIPODOCUMENTO_NOMBRE');
+            $data['title'] = 'Universidad Manuela Beltran, Aplicativo de Cuentas - Documentos de Hojas de Vida.';
+            $data['content'] = 'cv/documents/index';
+            $this->load->view('template/template', $data);
+        } else {
+            $this->session->set_flashdata(array('message' => 'Error al Consultar el Registro', 'message_type' => 'warning'));
+            redirect('cv', 'refresh');
+        }
+    }
+
+    public function insert_document_cv($id_cv) {
+        //VALIDAR PERMISO DEL ROL
+        validation_permission_role($this->module_sigla, 'permission_edit');
+
+        $id_cv = deencrypt_id($id_cv);
+        $data['registro'] = $this->cv_model->get_cv_id_cv($id_cv);
+        if (count($data['registro']) > 0) {
+            $FECHA = date("Y_m_d_H_i_s");
+            $TIPODOCUMENTO_ID = $this->input->post('TIPODOCUMENTO_ID', TRUE);
+
+            $config['upload_path'] = 'images/documentos/';
+            $config['allowed_types'] = 'pdf';
+            $config['encrypt_name'] = FALSE;
+            $config['max_size'] = '2000';
+            $FINE_NAME = $id_cv . '_' . $TIPODOCUMENTO_ID . '_' . $FECHA;
+            $config['file_name'] = $FINE_NAME;
+            $this->load->library('upload', $config);
+
+
+            $field_name = "userfile";
+            if (!$this->upload->do_upload($field_name)) {
+                $error = $this->upload->display_errors();
+                //echo 'Error: ' . strip_tags($error);
+                $this->session->set_flashdata(array('message' => strip_tags($error), 'message_type' => 'danger'));
+                redirect('cv/documents/' . encrypt_id($id_cv), 'refresh');
+            } else {
+
+                $upload_data = $this->upload->data();
+                $pdf_name = $upload_data['file_name'];
+
+                //echo "Exito!!!" . date("Y_m_d_H_i_s");
+
+                $data = array(
+                    'HV_ID' => $id_cv,
+                    'TIPODOCUMENTO_ID' => $TIPODOCUMENTO_ID,
+                    'DOCUMENTOHV_OBSERVACION' => addslashes($this->input->post('DOCUMENTOHV_OBSERVACION', TRUE)),
+                    'DOCUMENTOHV_IDCREADOR' => $this->session->userdata('USUARIO_ID'),
+                    'DOCUMENTOHV_NOMBRE' => $FINE_NAME
+                );
+                $insert = $this->cv_model->insert_document($data);
+
+                if ($insert) {
+                    $this->session->set_flashdata(array('message' => 'Documento cargado con exito.', 'message_type' => 'info'));
+                    redirect('cv/documents/' . encrypt_id($id_cv), 'refresh');
+                } else {
+                    $this->session->set_flashdata(array('message' => 'Error al insertar el documento', 'message_type' => 'error'));
+                    redirect('cv/documents/' . encrypt_id($id_cv), 'refresh');
+                }
+            }
+        } else {
+            $this->session->set_flashdata(array('message' => 'Error al Consultar el Registro', 'message_type' => 'warning'));
+            redirect('cv', 'refresh');
+        }
+    }
+
+    public function view_document($DOCUMENTO_ID) {
+        //VALIDAR PERMISO DEL ROL
+        validation_permission_role($this->module_sigla, 'permission_view');
+
+        $DOCUMENTO_ID = deencrypt_id($DOCUMENTO_ID);
+        $documen = $this->cv_model->get_document_cv($DOCUMENTO_ID);
+        if (count($documen) > 0) {
+            //echo '<pre>'.print_r($document,true).'</pre>';
+            $file = $documen[0]->DOCUMENTOHV_NOMBRE . '.pdf';
+            //echo $file;
+            header('Content-type: application/pdf');
+            header('Content-Disposition: inline; filename="' . $documen[0]->DOCUMENTOHV_NOMBRE . '.pdf"');
+            @readfile('images/documentos/' . $file);
         } else {
             $this->session->set_flashdata(array('message' => 'Error al Consultar el Registro', 'message_type' => 'warning'));
             redirect('cv', 'refresh');
@@ -171,7 +266,8 @@ class Cv extends CI_Controller {
                 'HV_TELEFONOFIJO' => $this->input->post('HV_TELEFONOFIJO', TRUE),
                 'HV_CELULAR' => $this->input->post('HV_CELULAR', TRUE),
                 'HV_ID' => $id_cv,
-                'HV_ESTADO' => $this->input->post('HV_ESTADO', TRUE)
+                'HV_ESTADO' => $this->input->post('HV_ESTADO', TRUE),
+                'HV_PROFESION' => $this->input->post('HV_PROFESION', TRUE)
             );
             $update = $this->cv_model->update_cv($data);
 

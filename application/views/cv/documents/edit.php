@@ -1,5 +1,3 @@
-
-
 <!-- BEGIN CONTENT -->
 <div class="page-content-wrapper">
     <div class="page-content">
@@ -23,11 +21,11 @@
                     <i class="fa fa-angle-right"></i>
                 </li>
                 <li>
-                    <a>
-                        Agregar
+                    <a href="">
+                        Editar
                     </a>
                 </li>                 
-            </ul>            
+            </ul>             
         </div>
         <!-- END PAGE HEADER-->
 
@@ -46,10 +44,11 @@
             </div>
 
             <div class="col-md-12 col-sm-12">
-                <div class="portlet box blue">
+
+                <div class="portlet box purple">
                     <div class="portlet-title">
                         <div class="caption">
-                            <i class="fa fa-gift"></i>Agregar Registro
+                            <i class="fa fa-gift"></i>Editar Hoja de Vida
                         </div>
                         <div class="tools">
                             <a href="javascript:;" class="collapse">
@@ -58,7 +57,7 @@
                     </div>
                     <div class="portlet-body form">
                         <!-- BEGIN FORM-->
-                        <form id="insert_cv" action="<?php echo base_url('cv/insert'); ?>" method="post" class="form-horizontal form-row-seperated">
+                        <form id="update_cv" action="<?php echo base_url('cv/update/' . encrypt_id($registro[0]->HV_ID)); ?>" method="post" class="form-horizontal form-row-seperated">
                             <div class="form-body">
 
                                 <div class="col-md-6">
@@ -68,7 +67,7 @@
                                             <span class="required" aria-required="true">*</span>
                                         </label>
                                         <div class="col-md-9">
-                                            <input type="text" name="HV_NOMBRES" value="<?php echo set_value('HV_NOMBRES') ?>" id="HV_NOMBRES" placeholder="Nombres" class="form-control">
+                                            <input type="text" name="HV_NOMBRES" value="<?php echo $registro[0]->HV_NOMBRES; ?>" id="HV_NOMBRES" placeholder="Nombres" class="form-control">
                                         </div>
                                     </div>
                                 </div>
@@ -80,7 +79,7 @@
                                             <span class="required" aria-required="true">*</span>
                                         </label>
                                         <div class="col-md-9">
-                                            <input type="text" name="HV_APELLIDOS" value="<?php echo set_value('HV_APELLIDOS') ?>" id="HV_APELLIDOS" placeholder="Apellidos" class="form-control">
+                                            <input type="text" name="HV_APELLIDOS" value="<?php echo $registro[0]->HV_APELLIDOS; ?>" id="HV_APELLIDOS" placeholder="Apellidos" class="form-control">
                                         </div>
                                     </div>
                                 </div>
@@ -91,7 +90,7 @@
                                             Tipo de Documento
                                         </label>
                                         <div class="col-md-9">
-                                            <?php echo form_dropdown('HV_TIPODOCUMENTO', array("CC" => "CC"), set_value('HV_TIPODOCUMENTO'), 'class="form-control"'); ?>
+                                            <?php echo form_dropdown('HV_TIPODOCUMENTO', array("CC" => "CC"), $registro[0]->HV_TIPODOCUMENTO, 'class="form-control"'); ?>
                                         </div>
                                     </div>  
                                 </div>
@@ -103,7 +102,7 @@
                                             <span class="required" aria-required="true">*</span>
                                         </label>
                                         <div class="col-md-9">
-                                            <input type="text" name="HV_NUMERODOCUMENTO" value="<?php echo set_value('HV_NUMERODOCUMENTO') ?>" id="HV_NUMERODOCUMENTO" placeholder="Documento" class="form-control">
+                                            <input type="text" name="HV_NUMERODOCUMENTO" value="<?php echo $registro[0]->HV_NUMERODOCUMENTO; ?>" id="HV_NUMERODOCUMENTO" placeholder="Documento" class="form-control">
                                         </div>
                                     </div>
                                 </div>
@@ -114,7 +113,7 @@
                                             Correo Electronico
                                         </label>
                                         <div class="col-md-9">
-                                            <input type="text" name="HV_CORREO" value="<?php echo set_value('HV_CORREO') ?>" id="HV_CORREO" placeholder="Correo Electronico" class="form-control">
+                                            <input type="text" name="HV_CORREO" value="<?php echo $registro[0]->HV_CORREO; ?>" id="HV_CORREO" placeholder="Correo Electronico" class="form-control">
                                         </div>
                                     </div>
                                 </div>
@@ -125,7 +124,7 @@
                                             Genero
                                         </label>
                                         <div class="col-md-9">
-                                            <?php echo form_dropdown('HV_GENERO', array("F" => "Femenino", "M" => "Masculino"), set_value('HV_GENERO'), 'class="form-control"'); ?>
+                                            <?php echo form_dropdown('HV_GENERO', array("F" => "Femenino", "M" => "Masculino"), $registro[0]->HV_GENERO, 'class="form-control"'); ?>
                                         </div>
                                     </div>
                                 </div>
@@ -136,18 +135,7 @@
                                             Fecha de Nac
                                         </label>
                                         <div class="col-md-9">
-                                            <input name="HV_FECHADENACIMIENTO" value="<?php echo set_value('HV_FECHADENACIMIENTO') ?>" id="HV_FECHADENACIMIENTO" class="form-control form-control-inline input-medium date-picker" size="16" type="text"/>
-                                        </div>
-                                    </div>
-                                </div> 
-
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label class="control-label col-md-3">
-                                            Direccion de Resi.
-                                        </label>
-                                        <div class="col-md-9">
-                                            <input type="text" name="HV_DIRECCIONRESIDENCIA" value="<?php echo set_value('HV_DIRECCIONRESIDENCIA') ?>" id="HV_DIRECCIONRESIDENCIA" placeholder="Direccion de Residencia" class="form-control">
+                                            <input name="HV_FECHADENACIMIENTO" value="<?php echo $registro[0]->HV_FECHADENACIMIENTO; ?>" id="HV_FECHADENACIMIENTO" class="form-control form-control-inline input-medium date-picker" size="16" type="text"/>
                                         </div>
                                     </div>
                                 </div>
@@ -155,10 +143,21 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label class="control-label col-md-3">
+                                            Direccion de Resi.
+                                        </label>
+                                        <div class="col-md-9">
+                                            <input type="text" name="HV_DIRECCIONRESIDENCIA" value="<?php echo $registro[0]->HV_DIRECCIONRESIDENCIA; ?>" id="HV_DIRECCIONRESIDENCIA" placeholder="Direccion de Residencia" class="form-control">
+                                        </div>
+                                    </div>
+                                </div> 
+
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3">
                                             Departamento de Nacimiento
                                         </label>
                                         <div class="col-md-9">
-                                            <?php echo form_dropdown('HV_LUGARDENACIMIENTO_DTO', $states, '', 'onchange="get_city(this.value,\'HV_LUGARDENACIMIENTO\')"  id="HV_LUGARDENACIMIENTO_DTO" class="form-control"'); ?>
+                                            <?php echo form_dropdown('HV_LUGARDENACIMIENTO_DTO', $depar, '', 'onchange="get_city(this.value,\'HV_LUGARDENACIMIENTO\')"  id="HV_LUGARDENACIMIENTO_DTO" class="form-control"'); ?>
                                         </div>
                                     </div>
                                 </div>                                
@@ -167,36 +166,35 @@
                                     <div class="form-group">
                                         <label class="control-label col-md-3">
                                             Municipio de Nacimiento
-                                            <span class="required" aria-required="true">*</span>
                                         </label>
                                         <div class="col-md-9" id='space_HV_LUGARDENACIMIENTO'>
-                                            <?php echo form_dropdown('HV_LUGARDENACIMIENTO', array("" => "--SELECCIONE PRIMERO UN DEPARTAMENTO--"), '', 'id="HV_LUGARDENACIMIENTO" class="form-control"'); ?>
+                                            <?php echo form_dropdown('HV_LUGARDENACIMIENTO', $citys, $registro[0]->HV_LUGARDENACIMIENTO, 'id="HV_LUGARDENACIMIENTO" class="form-control"'); ?>
                                         </div>
                                     </div>
                                 </div>
-
+                                
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label class="control-label col-md-3">
                                             Departamento de Residencia
                                         </label>
                                         <div class="col-md-9">
-                                            <?php echo form_dropdown('HV_LUGARDERESIDENCIA_DTO', $states, '', 'onchange="get_city(this.value,\'HV_LUGARDERESIDENCIA\')" id="HV_LUGARDERESIDENCIA_DTO" class="form-control"'); ?>
+                                            <?php echo form_dropdown('HV_LUGARDERESIDENCIA_DTO', $depar, '', 'onchange="get_city(this.value,\'HV_LUGARDERESIDENCIA\')" id="HV_LUGARDERESIDENCIA_DTO" class="form-control"'); ?>
                                         </div>
                                     </div>
-                                </div>
+                                </div>                                
+
 
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label class="control-label col-md-3">
                                             Municipio de Residencia
-                                            <span class="required" aria-required="true">*</span>
                                         </label>
                                         <div class="col-md-9" id='space_HV_LUGARDERESIDENCIA'>
-                                            <?php echo form_dropdown('HV_LUGARDERESIDENCIA', array("" => "--SELECCIONE PRIMERO UN DEPARTAMENTO--"), '', 'id="HV_LUGARDERESIDENCIA" class="form-control"'); ?>
+                                            <?php echo form_dropdown('HV_LUGARDERESIDENCIA', $citys, $registro[0]->HV_LUGARDERESIDENCIA, 'id="HV_LUGARDERESIDENCIA" class="form-control"'); ?>
                                         </div>
                                     </div>
-                                </div>
+                                </div> 
 
 
                                 <div class="col-md-6">
@@ -205,7 +203,7 @@
                                             Tele. Fijo
                                         </label>
                                         <div class="col-md-9">
-                                            <input type="text" name="HV_TELEFONOFIJO" value="<?php echo set_value('HV_TELEFONOFIJO') ?>" id="HV_TELEFONOFIJO" placeholder="Telefono Fijo" class="form-control">
+                                            <input type="text" name="HV_TELEFONOFIJO" value="<?php echo $registro[0]->HV_TELEFONOFIJO; ?>" id="HV_TELEFONOFIJO" placeholder="Telefono Fijo" class="form-control">
                                         </div>
                                     </div>
                                 </div>
@@ -216,28 +214,23 @@
                                             Celular
                                         </label>
                                         <div class="col-md-9">
-                                            <input type="text" name="HV_CELULAR" value="<?php echo set_value('HV_CELULAR') ?>" id="HV_CELULAR" placeholder="Celular" class="form-control">
+                                            <input type="text" name="HV_CELULAR" value="<?php echo $registro[0]->HV_CELULAR; ?>" id="HV_CELULAR" placeholder="Celular" class="form-control">
                                         </div>
                                     </div>
-                                </div>
+                                </div> 
 
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label class="control-label col-md-3">
-                                            Profesi&oacute;n
-                                        </label>
-                                        <div class="col-md-9">
-                                            <input type="text" name="HV_PROFESION" value="<?php echo set_value('HV_PROFESION') ?>" id="HV_PROFESION" placeholder="Profesion" class="form-control">
-<!--                                            <select class="form-control input-xlarge select2me" data-placeholder="Select...">
-                                                <option value=""></option>
-                                                <option value="AL">Alabama</option>
-                                                <option value="WY">Wyoming</option>
-                                            </select>
-                                            
-                                            <?php //echo form_dropdown('PROFESION_ID', $professions, '', 'id="select2_sample4" class="form-control"'); ?>-->
+                                        <div class="form-group">
+                                            <label class="control-label col-md-3">
+                                                Estado
+                                            </label>
+                                            <div class="col-md-9">
+                                                <?php echo form_dropdown('HV_ESTADO', $states, $registro[0]->HV_ESTADO, 'class="form-control"'); ?>
+                                            </div>
                                         </div>
-                                    </div>
-                                </div>                                
+                                    </div> 
+                                </div>
 
                             </div>
                             <div class="form-actions">
@@ -250,7 +243,7 @@
                                     </div>
                                 </div>
                             </div>
-                        </form>
+                        </form>                        
                         <!-- END FORM-->
                     </div>
                 </div>                
@@ -262,15 +255,13 @@
 
 
     <script>
-
         var FormValidation = function() {
-
             // basic validation
             var handleValidation1 = function() {
                 // for more info visit the official plugin documentation: 
                 // http://docs.jquery.com/Plugins/Validation
 
-                var form1 = $('#insert_cv');
+                var form1 = $('#update_cv');
                 var error1 = $('.alert-danger', form1);
                 var success1 = $('.alert-success', form1);
 
@@ -319,15 +310,12 @@
                         $("#" + form1).submit();
                     }
                 });
-
-
             }
             return {
                 //main function to initiate the module
                 init: function() {
                     handleValidation1();
                 }
-
             };
 
         }();

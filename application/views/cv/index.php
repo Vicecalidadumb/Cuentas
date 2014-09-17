@@ -103,7 +103,7 @@
                                                 <?php echo $registro->HV_TELEFONOFIJO . ' - ' . $registro->HV_CELULAR; ?>
                                             </td>
                                             <td>
-                                                ...
+                                                <?php echo $registro->HV_PROFESION; ?>
                                             </td>                                            
                                             <td>
                                                 <?php echo $registro->HV_FECHAINGRESO; ?>
@@ -112,15 +112,11 @@
                                                 <a href="<?php echo base_url('cv/edit/' . encrypt_id($registro->HV_ID)) ?>" class="btn default btn-xs purple">
                                                     <i class="fa fa-edit"></i> 
                                                     Editar Info. Basica
-                                                </a> 
-                                                <a href="<?php echo base_url('cv/edit/' . encrypt_id($registro->HV_ID)) ?>" class="btn default btn-xs yellow">
-                                                    <i class="fa fa-folder-open"></i> 
-                                                    Gestionar Archivos 
                                                 </a>
-                                                <a href="<?php echo base_url('cv/edit/' . encrypt_id($registro->HV_ID)) ?>" class="btn default btn-xs red">
-                                                    <i class="fa fa-eye"></i> 
-                                                    Ver Info. 
-                                                </a>                                                 
+                                                <a href="<?php echo base_url('cv/documents/' . encrypt_id($registro->HV_ID)) ?>" class="btn default btn-xs yellow">
+                                                    <i class="fa fa-folder-open"></i> 
+                                                    Ver Info. / Gestionar Archivos 
+                                                </a>                                               
                                             </td>                                        
                                         </tr>
                                         <?php
