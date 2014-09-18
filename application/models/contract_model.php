@@ -18,6 +18,7 @@ class Contract_model extends CI_Model {
                       WHERE c.HV_ID = h.HV_ID AND t.TIPOCONTRATO_ID = c.TIPOCONTRATO_ID  AND p.PROYECTO_ID = c.PROYECTO_ID
                       $Where
                       ORDER BY h.HV_NOMBRES";
+                   // echo $SQL_string;
         $SQL_string_query = $this->db->query($SQL_string);
         return $SQL_string_query->result();
     }

@@ -66,9 +66,9 @@
                                         $image = ($registro[0]->HV_GENERO == 'F') ? '/images/vice/user_f.png' : '/images/vice/user_h.png';
                                         ?>
                                         <img src="<?php echo base_url($image); ?>" class="img-responsive" alt=""/>
-                                        <a href="<?php echo base_url('cv/edit/' . encrypt_id($registro[0]->HV_ID)) ?>" class="profile-edit">
+<!--                                        <a href="<?php echo base_url('cv/edit/' . encrypt_id($registro[0]->HV_ID)) ?>" class="profile-edit">
                                             Editar
-                                        </a>
+                                        </a>-->
                                     </li>
 <!--                                    <li>
                                         <a href="">
