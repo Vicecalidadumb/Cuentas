@@ -66,9 +66,9 @@
                         <a href="<?php echo base_url('contract/add') ?>" class="btn blue">
                             Agregar Registro <i class="fa fa-plus"></i>
                         </a>
-
-                        <div class="table-scrollable">
-                            <table class="table table-hover">
+                        <hr>
+                        <div class="portlet-body">
+                            <table class="table table-striped table-bordered table-hover" id="sample_6">
                                 <thead>
                                     <tr>
                                         <th>#</th>
@@ -87,7 +87,7 @@
                                     $count = 1;
                                     foreach ($registros as $registro) {
                                         ?>
-                                        <tr <?php echo ($registro->HV_ESTADO == 0) ? 'class="danger"' : '' ?>>
+                                        <tr <?php echo ($registro->CONTRATO_ESTADO == 0) ? 'class="danger"' : '' ?>>
                                             <td>
                                                 <?php echo $count; ?>
                                             </td>

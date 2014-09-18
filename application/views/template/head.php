@@ -55,6 +55,11 @@ License: You must have a valid license purchased only from themeforest(the above
         <link href="<?php echo base_url('/assets/global/plugins/select2/select2.css'); ?>" rel="stylesheet">
         <link href="<?php echo base_url('/assets/global/plugins/jquery-multi-select/css/multi-select.css'); ?>" rel="stylesheet">
 
+        <link rel="stylesheet" type="text/css" href="<?php echo base_url('/assets/global/plugins/datatables/extensions/Scroller/css/dataTables.scroller.min.css'); ?>"/>
+        <link rel="stylesheet" type="text/css" href="<?php echo base_url('/assets/global/plugins/datatables/extensions/ColReorder/css/dataTables.colReorder.min.css'); ?>"/>
+        <link rel="stylesheet" type="text/css" href="<?php echo base_url('/assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.css'); ?>"/>        
+
+
         <!-- BEGIN THEME STYLES UMB!! -->
         <link href="<?php echo base_url('/css/style_umb.css'); ?>" rel="stylesheet" type="text/css"/>
         <!-- END THEME STYLES UMB!! -->

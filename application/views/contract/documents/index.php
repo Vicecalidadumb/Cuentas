@@ -5,7 +5,7 @@
     <div class="page-content">
         <!-- BEGIN PAGE HEADER-->
         <h3 class="page-title">
-            Documentos de Hojas <small>de Vida</small>
+            Documentos del <small>Contrado</small>
         </h3>
         <div class="page-bar">
             <ul class="page-breadcrumb">
@@ -17,14 +17,14 @@
                     <i class="fa fa-angle-right"></i>
                 </li>
                 <li>
-                    <a href="<?php echo base_url('cv') ?>">
-                        Hojas de Vida
+                    <a href="<?php echo base_url('contract') ?>">
+                        Contratos
                     </a>
                     <i class="fa fa-angle-right"></i>
                 </li>
                 <li>
                     <a href="">
-                        Documentos de Hojas de Vida
+                        Documentos del Contrado
                     </a>
                 </li>                 
             </ul>            
@@ -49,7 +49,7 @@
                 <div class="portlet box green">
                     <div class="portlet-title">
                         <div class="caption">
-                            <i class="fa fa-cogs"></i>Documentos de la Hoja de Vida
+                            <i class="fa fa-cogs"></i>Documentos del Contrado
                         </div>
                         <div class="tools">
                             <a href="javascript:;" class="collapse">
@@ -70,12 +70,12 @@
                                             Editar
                                         </a>
                                     </li>
-                                    <li>
+<!--                                    <li>
                                         <a href="">
                                             Contratos 
                                             <span>0</span>
                                         </a>
-                                    </li>
+                                    </li>-->
                                 </ul>
                             </div>
                             <div class="col-md-9">
@@ -87,15 +87,30 @@
                                         <p></p>
                                         <ul class="list-inline">
                                             <li>
-                                                <i class="fa fa-map-marker"></i> <?php echo $registro[0]->MUNICIPIO_NOMBRE ?>
-                                            </li>
-                                            <li>
                                                 <i class="fa fa-calendar"></i> <?php echo $registro[0]->HV_FECHADENACIMIENTO ?>
                                             </li>
                                             <li>
                                                 <i class="fa fa-mortar-board"></i> <?php echo $registro[0]->HV_PROFESION ?>
+                                            </li>
+                                            <li>
+                                                <i class="fa fa-money"></i> $<?php echo number_format($registro[0]->CONTRATO_VALOR,2,'.','.') ?>
                                             </li>                                            
                                         </ul>
+                                        <p>
+                                        <ul class="media-list">
+                                            <li class="media">
+                                                <a class="pull-left" href="#">
+                                                    <img class="media-object" src="<?php echo base_url($registro[0]->PROYECTO_IMAGEN) ?>" alt="64x64" data-src="holder.js/64x64" style="width: 64px; height: 64px;">
+                                                </a>
+                                                <div class="media-body">
+                                                    <h4 class="media-heading"><?php echo $registro[0]->PROYECTO_NOMBRE ?></h4>
+                                                    <p>
+                                                        <?php echo $registro[0]->PROYECTO_DESCRIPCION ?>
+                                                    </p>
+                                                </div>
+                                            </li>
+                                        </ul>                                            
+                                        </p>
                                         <p>
                                             Correo Electronico: <?php echo $registro[0]->HV_CORREO ?>
                                         </p>
@@ -104,7 +119,10 @@
                                         </p>
                                         <p>
                                             Telefonos: <?php echo $registro[0]->HV_TELEFONOFIJO . ' - ' . $registro[0]->HV_CELULAR ?>
-                                        </p>     
+                                        </p>
+                                        <p>
+                                            Fechas: Desde <?php echo $registro[0]->CONTRATO_FECHAINI . ' Hasta ' . $registro[0]->CONTRATO_FECHAFIN ?>
+                                        </p>                                         
                                         <br>
                                         <hr>
                                     </div>
@@ -115,7 +133,7 @@
                                     <ul class="nav nav-tabs">
                                         <li class="active">
                                             <a href="#tab_1_11" data-toggle="tab">
-                                                Documentos
+                                                Documentos del Contrato
                                             </a>
                                         </li>
                                     </ul>
@@ -152,10 +170,10 @@
                                                                     <?php echo $document->TIPODOCUMENTO_NOMBRE; ?>
                                                                 </td>
                                                                 <td>
-                                                                    <?php echo $document->DOCUMENTOHV_OBSERVACION; ?>
+                                                                    <?php echo $document->DOCUMENTOCO_OBSERVACION; ?>
                                                                 </td>
                                                                 <td>
-                                                                    <a class="btn default btn-xs green-stripe" href="<?php echo base_url('cv/view_document/' . encrypt_id($document->DOCUMENTOHV_ID)) ?>" target="_blank">
+                                                                    <a class="btn default btn-xs green-stripe" href="<?php echo base_url('contract/view_document/' . encrypt_id($document->DOCUMENTOCO_ID)) ?>" target="_blank">
                                                                         Ver 
                                                                     </a>
                                                                 </td>
@@ -192,7 +210,7 @@
                     <div class="portlet-body form">
                         <!-- BEGIN FORM-->
                         <?php //echo '<pre>' . print_r($documents, true) . '</pre>'; ?>
-                        <form enctype="multipart/form-data" id="insert_document_cv" action="<?php echo base_url('cv/insert_document_cv/' . encrypt_id($registro[0]->HV_ID)); ?>" method="post" class="form-horizontal form-row-seperated">
+                        <form enctype="multipart/form-data" id="insert_document_cv" action="<?php echo base_url('contract/insert_document_contract/' . encrypt_id($registro[0]->CONTRATO_ID)); ?>" method="post" class="form-horizontal form-row-seperated">
                             <div class="form-body">
 
                                 <div class="col-md-12">
@@ -212,7 +230,7 @@
                                             Observaci&oacute;n
                                         </label>
                                         <div class="col-md-9">
-                                            <textarea name="DOCUMENTOHV_OBSERVACION" id="DOCUMENTOHV_OBSERVACION" class="form-control" rows="3"></textarea>
+                                            <textarea name="DOCUMENTOCO_OBSERVACION" id="DOCUMENTOCO_OBSERVACION" class="form-control" rows="3"></textarea>
                                         </div>
                                     </div>
                                 </div>
