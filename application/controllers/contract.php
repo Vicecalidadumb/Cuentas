@@ -261,4 +261,46 @@ class Contract extends CI_Controller {
         }
     }
 
+////////////FUNCIONES AJAX
+    public function get_schedule_json() {
+        $this->load->model('cut_model');
+        $contract = $this->contract_model->get_all_contract('1');
+        $start = date("Y-m-d", $this->input->get('start'));
+        $end = date("Y-m-d", $this->input->get('end'));
+        $cut_day = get_cut_day();
+        $dias = dias_transcurridos($start, $end);
+        $cuts = $this->cut_model->get_all_cuts();
+        $events = array();
+        $count = 0;
+        for ($a = 1; $a <= $dias; $a++) {
+            $newdate = date("Y-m-d", strtotime("$start +" . $a . " day"));
+            $newdate_d = date("j", strtotime("$start +" . $a . " day"));
+            foreach ($cuts as $cut) {
+                if ($newdate_d == $cut->CORTE_DIAPAGO) {
+                    foreach ($contract as $contrac) {
+                        $cut_contrac = $cut_day[date("j", strtotime($contrac->CONTRATO_FECHAINI))];
+                        if ($cut_contrac == $cut->CORTE_ID) {
+                            $events[$count]['title'] = $cut->CORTE_ID . ' - ' . $contrac->HV_NOMBRES . ' ' . $contrac->HV_APELLIDOS;
+                            $events[$count]['start'] = $newdate;
+                            //echo "--OK: " . $newdate . ': ' . $contrac->CONTRATO_FECHAINI . '<br>';
+                            $count++;
+                        }
+                    }
+                }
+            }
+        }
+        for ($a = 0; $a < count($events); $a++) {
+            $array_send[] = array(
+                'title' => "Corte - " . $events[$a]['title'],
+                'start' => $events[$a]['start'] . ' 00:00:00',
+                'end' => $events[$a]['start'] . ' 23:59:59',
+                'allDay' => true,
+                'color' => "#ff0000",
+                'textColor' => "#FFFFFF",
+            );
+        }
+        //echo '<pre>' . print_r($array_send, true) . '</pre>';
+        echo json_encode($array_send);
+    }
+
 }
