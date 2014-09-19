@@ -20,7 +20,7 @@
             <?php echo $this->session->flashdata('message'); ?>
         </div>
     <?php } ?>          
-</div>        
+</div>     
 
 <div class="row ">
     <div class="col-md-12 col-sm-12">
@@ -140,7 +140,7 @@
                                                             <?php echo $document->DOCUMENTOHV_OBSERVACION; ?>
                                                         </td>
                                                         <td>
-                                                            <a class="btn default btn-xs green-stripe" href="<?php echo base_url('contract/view_document/' . encrypt_id($document->DOCUMENTOHV_ID)) ?>" target="_blank">
+                                                            <a class="btn default btn-xs green-stripe" href="<?php echo base_url('cv/view_document/' . encrypt_id($document->DOCUMENTOHV_ID)) ?>" target="_blank">
                                                                 Ver 
                                                             </a>
                                                         </td>
@@ -155,7 +155,7 @@
                                 </div>
                             </div>
                         </div>
-                        
+
                         <div class="tabbable tabbable-custom tabbable-custom-profile">
                             <ul class="nav nav-tabs">
                                 <li class="active">
