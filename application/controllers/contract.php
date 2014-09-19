@@ -186,6 +186,26 @@ class Contract extends CI_Controller {
             redirect('contract', 'refresh');
         }
     }
+    
+    public function info_documents($id_contract) {
+        //VALIDAR PERMISO DEL ROL
+        validation_permission_role($this->module_sigla, 'permission_edit');
+        $this->load->model('cv_model');
+
+        $id_contract = deencrypt_id($id_contract);
+        $data['registro'] = $this->contract_model->get_contract_id_contract($id_contract);
+        if (count($data['registro']) > 0) {
+            $data['documents'] = $this->contract_model->get_contractdocuments_id_contract($id_contract);
+            $data['documents_2'] = $this->cv_model->get_cvdocuments_id_cv($data['registro'][0]->HV_ID);
+            $data['typedocuments'] = get_dropdown($this->contract_model->get_typedocuments(), 'TIPODOCUMENTO_ID', 'TIPODOCUMENTO_NOMBRE');
+            $data['title'] = 'Universidad Manuela Beltran, Aplicativo de Cuentas - Documentos de Hojas de Vida.';
+            $data['content'] = 'contract/documents/index';
+            $this->load->view('contract/documents/index_info', $data);
+        } else {
+            $this->session->set_flashdata(array('message' => 'Error al Consultar el Registro', 'message_type' => 'warning'));
+            redirect('contract', 'refresh');
+        }
+    }    
 
     public function insert_document_contract($id_contract) {
         //VALIDAR PERMISO DEL ROL
@@ -280,10 +300,14 @@ class Contract extends CI_Controller {
                     foreach ($contract as $contrac) {
                         $cut_contrac = $cut_day[date("j", strtotime($contrac->CONTRATO_FECHAINI))];
                         if ($cut_contrac == $cut->CORTE_ID) {
-                            $events[$count]['title'] = $cut->CORTE_ID . ' - ' . $contrac->HV_NOMBRES . ' ' . $contrac->HV_APELLIDOS;
-                            $events[$count]['start'] = $newdate;
-                            //echo "--OK: " . $newdate . ': ' . $contrac->CONTRATO_FECHAINI . '<br>';
-                            $count++;
+                            if (check_in_range($contrac->CONTRATO_FECHAINI, $contrac->CONTRATO_FECHAFIN, date("Y-m-d", strtotime("$newdate -1 month")))) {
+                                $events[$count]['title'] = $cut->CORTE_ID . ' - ' . $contrac->HV_NOMBRES . ' ' . $contrac->HV_APELLIDOS;
+                                $events[$count]['start'] = $newdate;
+                                $events[$count]['year'] = date("Y", strtotime($newdate));
+                                $events[$count]['month'] = date("n", strtotime($newdate));
+                                //echo "--OK: " . $newdate . ': ' . $contrac->CONTRATO_FECHAINI . '<br>';
+                                $count++;
+                            }
                         }
                     }
                 }
@@ -295,8 +319,8 @@ class Contract extends CI_Controller {
                 'start' => $events[$a]['start'] . ' 00:00:00',
                 'end' => $events[$a]['start'] . ' 23:59:59',
                 'allDay' => true,
-                'color' => "#ff0000",
-                'textColor' => "#FFFFFF",
+                'backgroundColor' => 'Metronic.getBrandColor(\'yellow\')',
+                'url' => "" . base_url('cut/view_cut/' . $events[$a]['year'] . '/' . $events[$a]['month']) . ""
             );
         }
         //echo '<pre>' . print_r($array_send, true) . '</pre>';

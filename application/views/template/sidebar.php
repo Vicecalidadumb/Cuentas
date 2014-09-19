@@ -133,6 +133,11 @@
                                 </a>
                             </li> 
                         <?php endif; ?>
+                        <li>
+                            <a href="<?php echo base_url('cut/view_cut/'.date("Y").'/'.date("n")); ?>">
+                                Explorar
+                            </a>
+                        </li>                            
                     </ul>
                 </li>
             <?php endif; ?>

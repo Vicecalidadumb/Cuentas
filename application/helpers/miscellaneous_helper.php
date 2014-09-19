@@ -456,25 +456,63 @@ function dias_transcurridos($fecha_i, $fecha_f) {
     return $dias;
 }
 
-function get_cut_day(){
+function get_cut_day() {
     $CI = & get_instance();
     $CI->load->model('cut_model');
-    
+
     $cuts = $CI->cut_model->get_all_cuts();
     $array_cuts = array();
-    foreach ($cuts as $cut){
-        if($cut->CORTE_DIAINICIO>$cut->CORTE_DIAFIN){
-            for($a=$cut->CORTE_DIAINICIO;$a<=31;$a++){
+    foreach ($cuts as $cut) {
+        if ($cut->CORTE_DIAINICIO > $cut->CORTE_DIAFIN) {
+            for ($a = $cut->CORTE_DIAINICIO; $a <= 31; $a++) {
                 $array_cuts[$a] = $cut->CORTE_ID;
             }
-            for($a=1;$a<=$cut->CORTE_DIAFIN;$a++){
+            for ($a = 1; $a <= $cut->CORTE_DIAFIN; $a++) {
                 $array_cuts[$a] = $cut->CORTE_ID;
             }
-        }else{
-            for($a=$cut->CORTE_DIAINICIO;$a<=$cut->CORTE_DIAFIN;$a++){
+        } else {
+            for ($a = $cut->CORTE_DIAINICIO; $a <= $cut->CORTE_DIAFIN; $a++) {
                 $array_cuts[$a] = $cut->CORTE_ID;
-            }            
+            }
         }
     }
     return $array_cuts;
+}
+
+function get_cutday_id($id) {
+    $CI = & get_instance();
+    $CI->load->model('cut_model');
+    $cuts = $CI->cut_model->get_cut_id($id);
+    return $cuts[0]->CORTE_DIAPAGO;
+}
+
+function check_in_range($start_date, $end_date, $evaluame) {
+    $start_ts = strtotime($start_date);
+    $end_ts = strtotime($end_date);
+    $user_ts = strtotime($evaluame);
+    return (($user_ts >= $start_ts) && ($user_ts <= $end_ts));
+}
+
+function getUltimoDiaMes($elAnio, $elMes) {
+    return date("d", (mktime(0, 0, 0, $elMes + 1, 1, $elAnio) - 1));
+}
+
+function get_date_selectcut() {
+    $return = array();
+
+    $year1 = date("Y", strtotime(date("Y-m-d") . " -1 year"));
+    $year2 = date("Y");
+    $year3 = date("Y", strtotime(date("Y-m-d") . " +1 year"));
+
+    for ($a = 1; $a <= 12; $a++) {
+        $return[$year1 . '/' . $a] = $year1 . '/' . $a;
+    }
+    for ($a = 1; $a <= 12; $a++) {
+        $return[$year2 . '/' . $a] = $year2 . '/' . $a;
+    }
+    for ($a = 1; $a <= 12; $a++) {
+        $return[$year3 . '/' . $a] = $year3 . '/' . $a;
+    }
+
+    return $return;
 }

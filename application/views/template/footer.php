@@ -104,13 +104,13 @@
         //Index.initCharts(); // init index page's custom scripts
         //Index.initChat();
         TableAdvanced.init();
-       
+
         //Index.initMiniCharts();
         Index.initIntro();
         Tasks.initDashboardWidget();
         ComponentsDropdowns.init();
-         FormValidation.init();
-        
+        FormValidation.init();
+
     });
 </script>
 <!-- END JAVASCRIPTS -->
