@@ -16,7 +16,7 @@
             <li class="<?php echo strstr($content, 'desk') ? 'active open' : ''; ?>">
                 <a href="<?php echo base_url('desk'); ?>">
                     <i class="icon-home"></i>
-                    <span class="title">Inicio....</span>
+                    <span class="title">Inicio</span>
                 </a>
             </li>
 
@@ -145,14 +145,14 @@
                     </a>
                     <ul class="sub-menu">
                         <li>
-                            <a href="<?php echo base_url(''); ?>">
-                                Buscar Documento
+                            <a href="<?php echo base_url('document'); ?>">
+                                Ver Documento
                             </a>
                         </li>
-                        <?php if (know_permission_role('COR', 'permission_add')): ?>
+                        <?php if (know_permission_role('DCO', 'permission_add')): ?>
                             <li>
-                                <a href="<?php echo base_url(''); ?>">
-                                    Agregar a Corte
+                                <a href="<?php echo base_url('document/add'); ?>">
+                                    Agregar Documento a Corte
                                 </a>
                             </li>
                         <?php endif; ?>
