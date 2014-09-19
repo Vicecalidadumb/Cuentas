@@ -6,12 +6,12 @@ function recalculate_uploaded_documents() {
     $TIPO_DOCUMENTO_ID_3 = 0;
     $TIPO_DOCUMENTO_ID_4 = 0;
     $TIPO_DOCUMENTO_ID_TOTAL = 0;
-    
+
     $CI = & get_instance();
     $CI->load->model('particles_model');
     $documents = $CI->particles_model->get_documents_user($CI->session->userdata("INSCRIPCION_PIN"));
     //echo '<pre>' . print_y($documents, true) . '</pre>';
-    
+
     foreach ($documents as $document) {
         //echo $document->TIPO_DOCUMENTO_ID.'<br>';
         switch ($document->TIPO_DOCUMENTO_ID) {
@@ -30,10 +30,10 @@ function recalculate_uploaded_documents() {
             case 4:
                 $TIPO_DOCUMENTO_ID_1++;
                 $TIPO_DOCUMENTO_ID_TOTAL++;
-                break;            
+                break;
         }
     }
-    
+
     $CI->session->set_userdata('TIPO_DOCUMENTO_ID_1', $TIPO_DOCUMENTO_ID_1);
     $CI->session->set_userdata('TIPO_DOCUMENTO_ID_2', $TIPO_DOCUMENTO_ID_2);
     $CI->session->set_userdata('TIPO_DOCUMENTO_ID_3', $TIPO_DOCUMENTO_ID_3);
@@ -447,4 +447,72 @@ function send_mail($mails_destinations, $subject, $message, $path_attachment = a
         }
     }
     return $response;
+}
+
+function dias_transcurridos($fecha_i, $fecha_f) {
+    $dias = (strtotime($fecha_i) - strtotime($fecha_f)) / 86400;
+    $dias = abs($dias);
+    $dias = floor($dias);
+    return $dias;
+}
+
+function get_cut_day() {
+    $CI = & get_instance();
+    $CI->load->model('cut_model');
+
+    $cuts = $CI->cut_model->get_all_cuts();
+    $array_cuts = array();
+    foreach ($cuts as $cut) {
+        if ($cut->CORTE_DIAINICIO > $cut->CORTE_DIAFIN) {
+            for ($a = $cut->CORTE_DIAINICIO; $a <= 31; $a++) {
+                $array_cuts[$a] = $cut->CORTE_ID;
+            }
+            for ($a = 1; $a <= $cut->CORTE_DIAFIN; $a++) {
+                $array_cuts[$a] = $cut->CORTE_ID;
+            }
+        } else {
+            for ($a = $cut->CORTE_DIAINICIO; $a <= $cut->CORTE_DIAFIN; $a++) {
+                $array_cuts[$a] = $cut->CORTE_ID;
+            }
+        }
+    }
+    return $array_cuts;
+}
+
+function get_cutday_id($id) {
+    $CI = & get_instance();
+    $CI->load->model('cut_model');
+    $cuts = $CI->cut_model->get_cut_id($id);
+    return $cuts[0]->CORTE_DIAPAGO;
+}
+
+function check_in_range($start_date, $end_date, $evaluame) {
+    $start_ts = strtotime($start_date);
+    $end_ts = strtotime($end_date);
+    $user_ts = strtotime($evaluame);
+    return (($user_ts >= $start_ts) && ($user_ts <= $end_ts));
+}
+
+function getUltimoDiaMes($elAnio, $elMes) {
+    return date("d", (mktime(0, 0, 0, $elMes + 1, 1, $elAnio) - 1));
+}
+
+function get_date_selectcut() {
+    $return = array();
+
+    $year1 = date("Y", strtotime(date("Y-m-d") . " -1 year"));
+    $year2 = date("Y");
+    $year3 = date("Y", strtotime(date("Y-m-d") . " +1 year"));
+
+    for ($a = 1; $a <= 12; $a++) {
+        $return[$year1 . '/' . $a] = $year1 . '/' . $a;
+    }
+    for ($a = 1; $a <= 12; $a++) {
+        $return[$year2 . '/' . $a] = $year2 . '/' . $a;
+    }
+    for ($a = 1; $a <= 12; $a++) {
+        $return[$year3 . '/' . $a] = $year3 . '/' . $a;
+    }
+
+    return $return;
 }

@@ -66,9 +66,10 @@
                         <a href="<?php echo base_url('cv/add') ?>" class="btn blue">
                             Agregar Registro <i class="fa fa-plus"></i>
                         </a>
+                        <hr>
 
-                        <div class="table-scrollable">
-                            <table class="table table-hover">
+                        <div class="portlet-body">
+                            <table class="table table-striped table-bordered table-hover" id="sample_6">
                                 <thead>
                                     <tr>
                                         <th>#</th>

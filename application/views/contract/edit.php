@@ -66,7 +66,7 @@
                                             Tipo de Contrato
                                         </label>
                                         <div class="col-md-9">
-                                            <?php echo form_dropdown('TIPOCONTRATO_ID', $typecontracts, set_value('TIPOCONTRATO_ID'), 'class="form-control"'); ?>
+                                            <?php echo form_dropdown('TIPOCONTRATO_ID', $typecontracts, $registro[0]->TIPOCONTRATO_ID, 'class="form-control"'); ?>
                                         </div>
                                     </div>
                                 </div>
@@ -77,7 +77,7 @@
                                             Hoja de Vida
                                         </label>
                                         <div class="col-md-9">
-                                            <?php echo form_dropdown('HV_ID', $cvs, set_value('HV_ID'), 'class="form-control"'); ?>
+                                            <?php echo form_dropdown('HV_ID', $cvs, $registro[0]->HV_ID, 'class="form-control"'); ?>
                                         </div>
                                     </div>
                                 </div>
@@ -89,10 +89,10 @@
                                             <span class="required" aria-required="true">*</span>
                                         </label>
                                         <div class="col-md-9">
-                                            <input name="CONTRATO_FECHAINI" value="<?php echo set_value('CONTRATO_FECHAINI') ?>" id="CONTRATO_FECHAINI" class="form-control form-control-inline input-medium date-picker" size="16" type="text"/>
+                                            <input name="CONTRATO_FECHAINI" value="<?php echo $registro[0]->CONTRATO_FECHAINI ?>" id="CONTRATO_FECHAINI" class="form-control form-control-inline input-medium date-picker" size="16" type="text"/>
                                         </div>
                                     </div>
-                                </div> 
+                                </div>
 
                                 <div class="col-md-6">
                                     <div class="form-group">
@@ -101,7 +101,7 @@
                                             <span class="required" aria-required="true">*</span>
                                         </label>
                                         <div class="col-md-9">
-                                            <input name="CONTRATO_FECHAFIN" value="<?php echo set_value('CONTRATO_FECHAFIN') ?>" id="CONTRATO_FECHAFIN" class="form-control form-control-inline input-medium date-picker" size="16" type="text"/>
+                                            <input name="CONTRATO_FECHAFIN" value="<?php echo $registro[0]->CONTRATO_FECHAFIN ?>" id="CONTRATO_FECHAFIN" class="form-control form-control-inline input-medium date-picker" size="16" type="text"/>
                                         </div>
                                     </div>
                                 </div>                                
@@ -113,7 +113,7 @@
                                             <span class="required" aria-required="true">*</span>
                                         </label>
                                         <div class="col-md-5">
-                                            <input type="text" name="CONTRATO_VALOR" value="<?php echo set_value('CONTRATO_VALOR') ?>" id="CONTRATO_VALOR" placeholder="Valor del contrato" class="form-control">
+                                            <input type="text" name="CONTRATO_VALOR" value="<?php echo $registro[0]->CONTRATO_VALOR ?>" id="CONTRATO_VALOR" placeholder="Valor del contrato" class="form-control">
                                         </div>
                                     </div>
                                 </div>
@@ -124,10 +124,23 @@
                                             Proyecto
                                         </label>
                                         <div class="col-md-9">
-                                            <?php echo form_dropdown('PROYECTO_ID', $proyects, set_value('PROYECTO_ID'), 'class="form-control"'); ?>
+                                            <?php echo form_dropdown('PROYECTO_ID', $proyects, $registro[0]->PROYECTO_ID, 'class="form-control"'); ?>
                                         </div>
                                     </div>
-                                </div>                             
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <div class="form-group">
+                                            <label class="control-label col-md-3">
+                                                Estado
+                                            </label>
+                                            <div class="col-md-9">
+                                                <?php echo form_dropdown('CONTRATO_ESTADO', $states, $registro[0]->CONTRATO_ESTADO, 'class="form-control"'); ?>
+                                            </div>
+                                        </div>
+                                    </div> 
+                                </div>                                
 
                             </div>
                             <div class="form-actions">
@@ -140,7 +153,7 @@
                                     </div>
                                 </div>
                             </div>
-                        </form>                        
+                        </form>                       
                         <!-- END FORM-->
                     </div>
                 </div>                
@@ -148,72 +161,73 @@
             </div>
         </div>
     </div>
-    <!-- END CONTENT -->
+</div>
+<!-- END CONTENT -->
 
 
-    <script>
-        var FormValidation = function() {
-            // basic validation
-            var handleValidation1 = function() {
-                // for more info visit the official plugin documentation: 
-                // http://docs.jquery.com/Plugins/Validation
+<script>
+    var FormValidation = function() {
+        // basic validation
+        var handleValidation1 = function() {
+            // for more info visit the official plugin documentation: 
+            // http://docs.jquery.com/Plugins/Validation
 
-                var form1 = $('#update_contract');
-                var error1 = $('.alert-danger', form1);
-                var success1 = $('.alert-success', form1);
+            var form1 = $('#update_contract');
+            var error1 = $('.alert-danger', form1);
+            var success1 = $('.alert-success', form1);
 
-                form1.validate({
-                    errorElement: 'span', //default input error message container
-                    errorClass: 'help-block help-block-error', // default input error message class
-                    focusInvalid: false, // do not focus the last invalid input
-                    ignore: "", // validate all fields including form hidden input
-                    rules: {
-                        HV_NOMBRES: {
-                            required: true
-                        },
-                        HV_APELLIDOS: {
-                            required: true
-                        },
-                        HV_NUMERODOCUMENTO: {
-                            required: true
-                        },
-                        HV_LUGARDENACIMIENTO: {
-                            required: true
-                        },
-                        HV_LUGARDERESIDENCIA: {
-                            required: true
-                        }
+            form1.validate({
+                errorElement: 'span', //default input error message container
+                errorClass: 'help-block help-block-error', // default input error message class
+                focusInvalid: false, // do not focus the last invalid input
+                ignore: "", // validate all fields including form hidden input
+                rules: {
+                    HV_NOMBRES: {
+                        required: true
                     },
-                    invalidHandler: function(event, validator) { //display error alert on form submit              
-                        success1.hide();
-                        error1.show();
-                        Metronic.scrollTo(error1, -200);
+                    HV_APELLIDOS: {
+                        required: true
                     },
-                    highlight: function(element) { // hightlight error inputs
-                        $(element)
-                                .closest('.form-group').addClass('has-error'); // set error class to the control group
+                    HV_NUMERODOCUMENTO: {
+                        required: true
                     },
-                    unhighlight: function(element) { // revert the change done by hightlight
-                        $(element)
-                                .closest('.form-group').removeClass('has-error'); // set error class to the control group
+                    HV_LUGARDENACIMIENTO: {
+                        required: true
                     },
-                    /*success: function(label) {
-                     label
-                     .closest('.form-group').removeClass('has-error'); // set success class to the control group
-                     },*/
-                    submitHandler: function(form) {
-                        success1.show();
-                        error1.hide();
-                        $("#" + form1).submit();
+                    HV_LUGARDERESIDENCIA: {
+                        required: true
                     }
-                });
-            }
-            return {
-                //main function to initiate the module
-                init: function() {
-                    handleValidation1();
+                },
+                invalidHandler: function(event, validator) { //display error alert on form submit              
+                    success1.hide();
+                    error1.show();
+                    Metronic.scrollTo(error1, -200);
+                },
+                highlight: function(element) { // hightlight error inputs
+                    $(element)
+                            .closest('.form-group').addClass('has-error'); // set error class to the control group
+                },
+                unhighlight: function(element) { // revert the change done by hightlight
+                    $(element)
+                            .closest('.form-group').removeClass('has-error'); // set error class to the control group
+                },
+                /*success: function(label) {
+                 label
+                 .closest('.form-group').removeClass('has-error'); // set success class to the control group
+                 },*/
+                submitHandler: function(form) {
+                    success1.show();
+                    error1.hide();
+                    $("#" + form1).submit();
                 }
-            };
+            });
+        }
+        return {
+            //main function to initiate the module
+            init: function() {
+                handleValidation1();
+            }
+        };
 
-        }();
-    </script>
+    }();
+</script>

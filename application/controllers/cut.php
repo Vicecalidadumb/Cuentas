@@ -6,12 +6,12 @@ if (!defined('BASEPATH'))
 class Cut extends CI_Controller {
 
     private $module_sigla;
-    
+
     public function __construct() {
         parent::__construct();
         //DEFINIMOS EL NOMBRE DEL MODULO
-        $this->module_sigla = 'COR';    
-        
+        $this->module_sigla = 'COR';
+
         $this->load->helper('miscellaneous');
         $this->load->helper('security');
         $this->load->model('cut_model');
@@ -20,8 +20,8 @@ class Cut extends CI_Controller {
 
     public function index() {
         //VALIDAR PERMISO DEL ROL
-        validation_permission_role($this->module_sigla, 'permission_view');       
-        
+        validation_permission_role($this->module_sigla, 'permission_view');
+
         $data['title'] = 'Universidad Manuela Beltran, Aplicativo de Cuentas - Cortes.';
         $data['content'] = 'cut/index';
         $data['cuts'] = $this->cut_model->get_all_cuts();
@@ -30,8 +30,8 @@ class Cut extends CI_Controller {
 
     public function add() {
         //VALIDAR PERMISO DEL ROL
-        validation_permission_role($this->module_sigla, 'permission_add');        
-        
+        validation_permission_role($this->module_sigla, 'permission_add');
+
         $data['title'] = 'Universidad Manuela Beltran, Aplicativo de Cuentas - Cortes.';
         $data['content'] = 'cut/add';
         $this->load->view('template/template', $data);
@@ -39,8 +39,8 @@ class Cut extends CI_Controller {
 
     public function insert() {
         //VALIDAR PERMISO DEL ROL
-        validation_permission_role($this->module_sigla, 'permission_add');        
-        
+        validation_permission_role($this->module_sigla, 'permission_add');
+
         //CARGAMOS LA LIBRERIA DE VALIDACION DE CODEIGNITER
         $this->load->library('form_validation');
         //DEFINIMOS LOS DELIMITADORES DE LOS MENSAJES DE ERROR - EN FORMATO HTML
@@ -82,8 +82,8 @@ class Cut extends CI_Controller {
 
     public function edit($CORTE_ID) {
         //VALIDAR PERMISO DEL ROL
-        validation_permission_role($this->module_sigla, 'permission_edit');          
-        
+        validation_permission_role($this->module_sigla, 'permission_edit');
+
         $CORTE_ID = deencrypt_id($CORTE_ID);
         $data['states'] = get_array_states();
         $data['title'] = 'Universidad Manuela Beltran, Aplicativo de Cuentas - Editar Cortes.';
@@ -94,8 +94,8 @@ class Cut extends CI_Controller {
 
     public function update($CORTE_ID) {
         //VALIDAR PERMISO DEL ROL
-        validation_permission_role($this->module_sigla, 'permission_edit');          
-        
+        validation_permission_role($this->module_sigla, 'permission_edit');
+
         $CORTE_ID = deencrypt_id($CORTE_ID);
         //CARGAMOS LA LIBRERIA DE VALIDACION DE CODEIGNITER
         $this->load->library('form_validation');
@@ -137,6 +137,50 @@ class Cut extends CI_Controller {
                 redirect('cut', 'refresh');
             }
         }
+    }
+
+    public function view_cut($year = '', $month = '') {
+        //VALIDAR PERMISO DEL ROL
+        validation_permission_role($this->module_sigla, 'permission_view');
+        $this->load->model('contract_model');
+
+        $data['select'] = $year . '/' . $month;
+        $data['title'] = 'Universidad Manuela Beltran, Aplicativo de Cuentas - Cortes.';
+        $data['content'] = 'cut/view';
+        $data['cuts'] = $this->cut_model->get_all_cuts();
+        $data['date'] = get_date_selectcut();
+
+        $data['registros'] = $this->contract_model->get_all_contract('1');
+        $start = $year . '/' . $month . '/01';
+        $end = $year . '/' . $month . '/' . getUltimoDiaMes($year, $month);
+        $cut_day = get_cut_day();
+        $dias = dias_transcurridos($start, $end);
+        $cuts = $this->cut_model->get_all_cuts();
+        $data['contractok'] = array();
+        $count = 0;
+
+        $dias = dias_transcurridos($start, $end);
+
+        for ($a = 1; $a <= $dias; $a++) {
+            $newdate = date("Y-m-d", strtotime("$start +" . $a . " day"));
+            $newdate_d = date("j", strtotime("$start +" . $a . " day"));
+            foreach ($cuts as $cut) {
+                if ($newdate_d == $cut->CORTE_DIAPAGO) {
+                    foreach ($data['registros'] as $contrac) {
+                        $cut_contrac = $cut_day[date("j", strtotime($contrac->CONTRATO_FECHAINI))];
+                        if ($cut_contrac == $cut->CORTE_ID) {
+                            if (check_in_range($contrac->CONTRATO_FECHAINI, $contrac->CONTRATO_FECHAFIN, date("Y-m-d", strtotime("$newdate -1 month")) )) {
+                                $data['contractok'][$count]['id'] = $contrac->CONTRATO_ID;
+                                //echo "--OK: " . $newdate . ': ' . $contrac->CONTRATO_FECHAINI . '<br>';
+                                $count++;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        $this->load->view('template/template', $data);
     }
 
 }

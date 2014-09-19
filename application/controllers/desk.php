@@ -21,6 +21,6 @@ class Desk extends CI_Controller {
         $data['title'] = 'Universidad Manuela Beltran, Aplicativo de Cuentas - Escritorio.';
         $data['content'] = 'desk/index';
         $this->load->view('template/template', $data);
-    }
+    }   
 
 }

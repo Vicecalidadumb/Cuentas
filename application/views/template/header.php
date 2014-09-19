@@ -21,7 +21,7 @@
             <div class="top-menu">
                 <ul class="nav navbar-nav pull-right">
                     <!-- BEGIN NOTIFICATION DROPDOWN -->
-                    <li class="dropdown dropdown-extended dropdown-notification" id="header_notification_bar">
+<!--                    <li class="dropdown dropdown-extended dropdown-notification" id="header_notification_bar">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
                             <i class="icon-calendar"></i>
                             <span class="badge badge-default">
@@ -58,7 +58,7 @@
                                 </a>
                             </li>
                         </ul>
-                    </li>
+                    </li>-->
                     <!-- END NOTIFICATION DROPDOWN -->
 
 

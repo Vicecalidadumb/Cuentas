@@ -66,9 +66,10 @@
                         <a href="<?php echo base_url('contract/add') ?>" class="btn blue">
                             Agregar Registro <i class="fa fa-plus"></i>
                         </a>
-
-                        <div class="table-scrollable">
-                            <table class="table table-hover">
+                        <hr>
+                        <div class="portlet-body">
+                            <?php $cut_day = get_cut_day(); ?>
+                            <table class="table table-striped table-bordered table-hover" id="sample_6">
                                 <thead>
                                     <tr>
                                         <th>#</th>
@@ -77,9 +78,9 @@
                                         <th>Profesion</th>
                                         <th>Fecha de Inicio</th>
                                         <th>Fecha Final</th>
-                                        <th>Contrato</th>
                                         <th>Proyecto</th>
-                                        <th>Opciones</th>                                   
+                                        <th>Corte</th>
+                                        <th>Opciones</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -87,7 +88,7 @@
                                     $count = 1;
                                     foreach ($registros as $registro) {
                                         ?>
-                                        <tr <?php echo ($registro->HV_ESTADO == 0) ? 'class="danger"' : '' ?>>
+                                        <tr <?php echo ($registro->CONTRATO_ESTADO == 0) ? 'class="danger"' : '' ?>>
                                             <td>
                                                 <?php echo $count; ?>
                                             </td>
@@ -105,13 +106,13 @@
                                             </td>
                                             <td>
                                                 <?php echo $registro->CONTRATO_FECHAFIN; ?>
-                                            </td>  
-                                            <td>
-                                                <?php echo $registro->TIPOCONTRATO_NOMBRE; ?>
-                                            </td>  
+                                            </td>   
                                             <td>
                                                 <?php echo $registro->PROYECTO_NOMBRE; ?>
-                                            </td>                                              
+                                            </td>
+                                            <td>
+                                                <?php echo $cut_day[date("j", strtotime($registro->CONTRATO_FECHAINI))]; ?>
+                                            </td>                                            
                                             <td>
                                                 <a href="<?php echo base_url('contract/edit/' . encrypt_id($registro->CONTRATO_ID)) ?>" class="btn default btn-xs purple">
                                                     <i class="fa fa-edit"></i> 

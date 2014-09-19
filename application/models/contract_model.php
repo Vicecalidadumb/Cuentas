@@ -18,6 +18,7 @@ class Contract_model extends CI_Model {
                       WHERE c.HV_ID = h.HV_ID AND t.TIPOCONTRATO_ID = c.TIPOCONTRATO_ID  AND p.PROYECTO_ID = c.PROYECTO_ID
                       $Where
                       ORDER BY h.HV_NOMBRES";
+                   // echo $SQL_string;
         $SQL_string_query = $this->db->query($SQL_string);
         return $SQL_string_query->result();
     }
@@ -66,34 +67,36 @@ class Contract_model extends CI_Model {
                       WHERE c.HV_ID = h.HV_ID AND t.TIPOCONTRATO_ID = c.TIPOCONTRATO_ID  AND p.PROYECTO_ID = c.PROYECTO_ID
                       AND c.CONTRATO_ID = $id_contract
                       ORDER BY h.HV_NOMBRES";
-        echo $SQL_string;
-        $SQL_string_query = $this->db->query($SQL_string);
-        return $SQL_string_query->result();
-    }
-
-    public function get_cvdocuments_id_cv($id_cv) {
-        $SQL_string = "SELECT *
-                      FROM {$this->db->dbprefix('hojasdevida')} h, "
-                . "{$this->db->dbprefix('municipios')} m, "
-                . "{$this->db->dbprefix('documento_hv')} d, "
-                . "{$this->db->dbprefix('tipo_documento')} t
-                      WHERE h.HV_ID = $id_cv "
-                . "AND CONCAT(m.DEPARTAMENTO_ID,m.MUNICIPIO_ID) = h.HV_LUGARDERESIDENCIA "
-                . "AND d.HV_ID = h.HV_ID AND t.TIPODOCUMENTO_ID = d.TIPODOCUMENTO_ID";
         //echo $SQL_string;
         $SQL_string_query = $this->db->query($SQL_string);
         return $SQL_string_query->result();
     }
 
-    public function get_document_cv($id_document) {
+    public function get_contractdocuments_id_contract($id_contract) {
         $SQL_string = "SELECT *
-                      FROM {$this->db->dbprefix('hojasdevida')} h, "
-                . "{$this->db->dbprefix('municipios')} m, "
-                . "{$this->db->dbprefix('documento_hv')} d, "
+                      FROM {$this->db->dbprefix('contratos')} c, "
+                . "{$this->db->dbprefix('proyectos')} p, "
+                . "{$this->db->dbprefix('documento_co')} d, "
                 . "{$this->db->dbprefix('tipo_documento')} t
-                      WHERE d.DOCUMENTOHV_ID = $id_document "
-                . "AND CONCAT(m.DEPARTAMENTO_ID,m.MUNICIPIO_ID) = h.HV_LUGARDERESIDENCIA "
-                . "AND d.HV_ID = h.HV_ID AND t.TIPODOCUMENTO_ID = d.TIPODOCUMENTO_ID";
+                      WHERE c.CONTRATO_ID = $id_contract "
+                . "AND d.CONTRATO_ID = c.CONTRATO_ID "
+                . "AND p.PROYECTO_ID=c.PROYECTO_ID "
+                . "AND t.TIPODOCUMENTO_ID = d.TIPODOCUMENTO_ID";
+        //echo $SQL_string;
+        $SQL_string_query = $this->db->query($SQL_string);
+        return $SQL_string_query->result();
+    }
+
+    public function get_document_contract($id_document) {
+        $SQL_string = "SELECT *
+                      FROM {$this->db->dbprefix('contratos')} c, "
+                . "{$this->db->dbprefix('proyectos')} p, "
+                . "{$this->db->dbprefix('documento_co')} d, "
+                . "{$this->db->dbprefix('tipo_documento')} t
+                      WHERE d.DOCUMENTOCO_ID = $id_document "
+                . "AND d.CONTRATO_ID = c.CONTRATO_ID "
+                . "AND p.PROYECTO_ID=c.PROYECTO_ID "
+                . "AND t.TIPODOCUMENTO_ID = d.TIPODOCUMENTO_ID";
         //echo $SQL_string;
         $SQL_string_query = $this->db->query($SQL_string);
         return $SQL_string_query->result();
@@ -133,24 +136,17 @@ class Contract_model extends CI_Model {
         return $this->db->query($SQL_string);
     }
 
-    public function update_cv($data) {
-        $SQL_string = "UPDATE {$this->db->dbprefix('hojasdevida')} SET
-                        HV_NOMBRES = '{$data['HV_NOMBRES']}',
-                        HV_APELLIDOS = '{$data['HV_APELLIDOS']}',
-                        HV_TIPODOCUMENTO = '{$data['HV_TIPODOCUMENTO']}',
-                        HV_NUMERODOCUMENTO = '{$data['HV_NUMERODOCUMENTO']}',
-                        HV_CORREO = '{$data['HV_CORREO']}',
-                        HV_GENERO = '{$data['HV_GENERO']}',
-                        HV_FECHADENACIMIENTO = '{$data['HV_FECHADENACIMIENTO']}',
-                        HV_LUGARDENACIMIENTO = '{$data['HV_LUGARDENACIMIENTO']}',
-                        HV_DIRECCIONRESIDENCIA = '{$data['HV_DIRECCIONRESIDENCIA']}',
-                        HV_LUGARDERESIDENCIA = '{$data['HV_LUGARDERESIDENCIA']}',
-                        HV_TELEFONOFIJO = '{$data['HV_TELEFONOFIJO']}',
-                        HV_CELULAR = '{$data['HV_CELULAR']}',
-                        HV_ESTADO = '{$data['HV_ESTADO']}',
-                        HV_PROFESION = '{$data['HV_PROFESION']}'
+    public function update_contract($data) {
+        $SQL_string = "UPDATE {$this->db->dbprefix('contratos')} SET
+                        TIPOCONTRATO_ID = '{$data['TIPOCONTRATO_ID']}',
+                        HV_ID = '{$data['HV_ID']}',
+                        CONTRATO_FECHAINI = '{$data['CONTRATO_FECHAINI']}',
+                        CONTRATO_FECHAFIN = '{$data['CONTRATO_FECHAFIN']}',
+                        CONTRATO_VALOR = '{$data['CONTRATO_VALOR']}',
+                        PROYECTO_ID = '{$data['PROYECTO_ID']}',
+                        CONTRATO_ESTADO = '{$data['CONTRATO_ESTADO']}'
                        WHERE
-                       HV_ID = {$data['HV_ID']}
+                       CONTRATO_ID = {$data['CONTRATO_ID']}
                        ";
         //echo $SQL_string;
         return $SQL_string_query = $this->db->query($SQL_string);
@@ -167,28 +163,28 @@ class Contract_model extends CI_Model {
 
     public function get_typedocuments() {
         $SQL_string = "SELECT *
-                      FROM {$this->db->dbprefix('tipo_documento')}";
+                      FROM {$this->db->dbprefix('tipo_documento')} WHERE (TIPODOCUMENTO_TIPOCONSULTA=2 OR TIPODOCUMENTO_TIPOCONSULTA=0)";
         //echo $SQL_string;
         $SQL_string_query = $this->db->query($SQL_string);
         return $SQL_string_query->result();
     }
 
     public function insert_document($data) {
-        $SQL_string = "INSERT INTO {$this->db->dbprefix('documento_hv')}
+        $SQL_string = "INSERT INTO {$this->db->dbprefix('documento_co')}
                       (
-                        HV_ID,
+                        CONTRATO_ID,
                         TIPODOCUMENTO_ID,
-                        DOCUMENTOHV_OBSERVACION,
-                        DOCUMENTOHV_IDCREADOR,
-                        DOCUMENTOHV_NOMBRE
+                        DOCUMENTOCO_OBSERVACION,
+                        DOCUMENTOCO_IDCREADOR,
+                        DOCUMENTOCO_NOMBRE
                        )
                       VALUES
                        (
-                        '{$data['HV_ID']}',
+                        '{$data['CONTRATO_ID']}',
                         '{$data['TIPODOCUMENTO_ID']}',
-                        '{$data['DOCUMENTOHV_OBSERVACION']}',
-                        '{$data['DOCUMENTOHV_IDCREADOR']}',
-                        '{$data['DOCUMENTOHV_NOMBRE']}'
+                        '{$data['DOCUMENTOCO_OBSERVACION']}',
+                        '{$data['DOCUMENTOCO_IDCREADOR']}',
+                        '{$data['DOCUMENTOCO_NOMBRE']}'
                        )
                        ";
         return $this->db->query($SQL_string);

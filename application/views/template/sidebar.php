@@ -31,7 +31,7 @@
                     <ul class="sub-menu">
                         <li>
                             <a href="<?php echo base_url('user'); ?>">
-                                Listado de Usuarios.....
+                                Listado de Usuarios
                             </a>
                         </li>
                         <?php if (know_permission_role('USU', 'permission_add')): ?>
@@ -113,11 +113,12 @@
             <?php endif; ?>
 
             <?php if (know_permission_role('COR', 'permission_view')): ?>
-                <li class="<?php echo strstr($content, '---') ? 'active open' : ''; ?>">
+                <li class="<?php echo strstr($content, 'cut') ? 'active open' : ''; ?>">
                     <a href="javascript:;">
                         <i class="icon-calendar"></i>
                         <span class="title">Admin de Cortes</span>
-                        <span class="arrow "></span>
+                        <?php echo strstr($content, 'cut') ? '<span class="selected"></span>' : ''; ?>
+                        <span class="arrow <?php echo strstr($content, 'cut') ? 'open' : ''; ?>"></span>
                     </a>
                     <ul class="sub-menu">
                         <li>
@@ -132,6 +133,11 @@
                                 </a>
                             </li> 
                         <?php endif; ?>
+                        <li>
+                            <a href="<?php echo base_url('cut/view_cut/'.date("Y").'/'.date("n")); ?>">
+                                Explorar
+                            </a>
+                        </li>                            
                     </ul>
                 </li>
             <?php endif; ?>
@@ -141,18 +147,29 @@
                     <a href="javascript:;">
                         <i class="icon-docs"></i>
                         <span class="title">Documentos</span>
-                        <span class="arrow "></span>
+                        <?php echo strstr($content, '---') ? '<span class="selected"></span>' : ''; ?>
+                        <span class="arrow <?php echo strstr($content, '---') ? 'open' : ''; ?>"></span>
                     </a>
                     <ul class="sub-menu">
                         <li>
+<<<<<<< HEAD
                             <a href="<?php echo base_url('document'); ?>">
                                 Ver Documento
+=======
+                            <a href="<?php echo base_url(''); ?>">
+                                Documentos
+>>>>>>> origin/master
                             </a>
                         </li>
                         <?php if (know_permission_role('DCO', 'permission_add')): ?>
                             <li>
+<<<<<<< HEAD
                                 <a href="<?php echo base_url('document/add'); ?>">
                                     Agregar Documento a Corte
+=======
+                                <a href="<?php echo base_url(''); ?>">
+                                    Agregar Documento
+>>>>>>> origin/master
                                 </a>
                             </li>
                         <?php endif; ?>
