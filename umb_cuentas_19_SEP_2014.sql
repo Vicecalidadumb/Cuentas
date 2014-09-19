@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: localhost
--- Tiempo de generación: 17-09-2014 a las 19:21:02
+-- Tiempo de generación: 19-09-2014 a las 15:55:02
 -- Versión del servidor: 5.5.20
 -- Versión de PHP: 5.3.9
 
@@ -45,7 +45,7 @@ CREATE TABLE IF NOT EXISTS `cuentas_contratos` (
 --
 
 INSERT INTO `cuentas_contratos` (`CONTRATO_ID`, `HV_ID`, `TIPOCONTRATO_ID`, `PROYECTO_ID`, `CONTRATO_FECHAINI`, `CONTRATO_FECHAFIN`, `CONTRATO_VALOR`, `CONTRATO_FECHADECREACION`, `USUARIO_ID`, `CONTRATO_ESTADO`) VALUES
-(1, 2, 1, 2, '2014-09-17', '2014-09-30', '2500000', '2014-09-17 16:37:19', 8, 1);
+(1, 1, 1, 1, '2013-12-05', '2014-12-05', '3000000', '2014-09-19 15:41:39', 8, 1);
 
 -- --------------------------------------------------------
 
@@ -63,15 +63,16 @@ CREATE TABLE IF NOT EXISTS `cuentas_cortes` (
   `CORTE_FECHACREACION` timestamp NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'FECHA DE CREACION',
   `CORTE_ESTADO` tinyint(4) DEFAULT '1' COMMENT 'ESTADO EN EL SISTEMA',
   PRIMARY KEY (`CORTE_ID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
 
 --
 -- Volcado de datos para la tabla `cuentas_cortes`
 --
 
 INSERT INTO `cuentas_cortes` (`CORTE_ID`, `CORTE_NOMBREADMIN`, `CORTE_DIAPAGO`, `CORTE_DIAINICIO`, `CORTE_DIAFIN`, `USUARIO_ID`, `CORTE_FECHACREACION`, `CORTE_ESTADO`) VALUES
-(1, 'CORTE 01', 15, 1, 14, 8, '2014-08-29 21:38:00', 1),
-(2, 'CORTE 02', 25, 15, 24, 8, '2014-08-29 21:38:00', 1);
+(1, 'CORTE 01', 5, 25, 4, 8, '2014-09-19 15:42:05', 1),
+(2, 'CORTE 02', 15, 5, 14, 8, '2014-09-19 15:42:18', 1),
+(3, 'CORTE 03', 25, 15, 24, 8, '2014-09-19 15:42:31', 1);
 
 -- --------------------------------------------------------
 
@@ -140,7 +141,14 @@ CREATE TABLE IF NOT EXISTS `cuentas_documento_co` (
   `DOCUMENTOCO_IDCREADOR` int(11) DEFAULT NULL COMMENT 'ID DEL CREADOR',
   `DOCUMENTOCO_ESTADO` tinyint(4) DEFAULT '1' COMMENT 'ESTADO DEL DOCUMENTO',
   PRIMARY KEY (`DOCUMENTOCO_ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+
+--
+-- Volcado de datos para la tabla `cuentas_documento_co`
+--
+
+INSERT INTO `cuentas_documento_co` (`DOCUMENTOCO_ID`, `CONTRATO_ID`, `DOCUMENTOCO_NOMBRE`, `TIPODOCUMENTO_ID`, `DOCUMENTOCO_OBSERVACION`, `DOCUMENTOCO_FECHADECREACION`, `DOCUMENTOCO_IDCREADOR`, `DOCUMENTOCO_ESTADO`) VALUES
+(1, 1, '1_5_2014_09_19_15_43_23', 5, 'Contrato Firmado', '2014-09-19 15:43:23', 8, 1);
 
 -- --------------------------------------------------------
 
@@ -177,17 +185,14 @@ CREATE TABLE IF NOT EXISTS `cuentas_documento_hv` (
   `DOCUMENTOHV_IDCREADOR` int(11) DEFAULT NULL COMMENT 'ID DEL USUARIO CREADOR',
   `DOCUMENTOHV_ESTADO` tinyint(4) DEFAULT '1' COMMENT 'ESTADO EN EL SISTEMA',
   PRIMARY KEY (`DOCUMENTOHV_ID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
 
 --
 -- Volcado de datos para la tabla `cuentas_documento_hv`
 --
 
 INSERT INTO `cuentas_documento_hv` (`DOCUMENTOHV_ID`, `HV_ID`, `DOCUMENTOHV_NOMBRE`, `TIPODOCUMENTO_ID`, `DOCUMENTOHV_OBSERVACION`, `DOCUMENTOHV_FECHADECREACION`, `DOCUMENTOHV_IDCREADOR`, `DOCUMENTOHV_ESTADO`) VALUES
-(1, 1, '1_1_2014_09_16_20_00_19', 1, 'Hoja de Vida Digital', '2014-09-16 20:00:19', 8, 1),
-(2, 1, '1_2_2014_09_16_20_25_01', 2, 'Educación  Universitaria', '2014-09-16 20:25:01', 8, 1),
-(3, 1, '1_3_2014_09_16_20_31_34', 3, 'Experiencia UMB', '2014-09-16 20:31:34', 8, 1),
-(4, 2, '2_1_2014_09_16_21_33_56', 1, 'Hoja de Vida Digital', '2014-09-16 21:33:56', 8, 1);
+(1, 1, '1_1_2014_09_19_15_41_00', 1, 'Hoja de Vida Digital', '2014-09-19 15:41:00', 8, 1);
 
 -- --------------------------------------------------------
 
@@ -213,15 +218,14 @@ CREATE TABLE IF NOT EXISTS `cuentas_hojasdevida` (
   `HV_ESTADO` tinyint(4) DEFAULT '1' COMMENT 'ESTADO EN EL SISTEMA',
   `HV_FECHAINGRESO` timestamp NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'FECHA DE CREACION EN EL SISTEMA',
   PRIMARY KEY (`HV_ID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
 
 --
 -- Volcado de datos para la tabla `cuentas_hojasdevida`
 --
 
 INSERT INTO `cuentas_hojasdevida` (`HV_ID`, `HV_NOMBRES`, `HV_APELLIDOS`, `HV_TIPODOCUMENTO`, `HV_NUMERODOCUMENTO`, `HV_CORREO`, `HV_GENERO`, `HV_FECHADENACIMIENTO`, `HV_LUGARDENACIMIENTO`, `HV_DIRECCIONRESIDENCIA`, `HV_LUGARDERESIDENCIA`, `HV_TELEFONOFIJO`, `HV_CELULAR`, `HV_PROFESION`, `HV_ESTADO`, `HV_FECHAINGRESO`) VALUES
-(1, 'NOMBRE1 02', 'APELLIDO1 02', 'CC', 1111102, '1111102@GMAIL.COM', 'F', '2014-09-14', 731, 'CASA 02', 111, '2611112', '3111111112', 'Administración de Empresas', 1, '2014-09-13 14:49:36'),
-(2, 'Yeison', 'Arias', 'CC', 1110473459, 'yariasm@gmail.com', 'M', '1988-07-17', 731, 'Casa', 111, '2611111', '3168231713', 'Ingeniero de Sistemas', 1, '2014-09-16 21:31:47');
+(1, 'Yeison', 'Arias', 'CC', 1110473459, 'yariasm@gmail.com', 'M', '1988-07-17', 731, 'Cra 24 No. 35-57', 111, '2611111', '3178321713', 'Ingeniero de Sistemas', 1, '2014-09-19 15:40:34');
 
 -- --------------------------------------------------------
 
@@ -32407,6 +32411,8 @@ INSERT INTO `cuentas_profesiones` (`PROFESION_ID`, `PROFESION_NOMBRE`, `PROFESIO
 CREATE TABLE IF NOT EXISTS `cuentas_proyectos` (
   `PROYECTO_ID` int(11) NOT NULL AUTO_INCREMENT COMMENT 'ID DEL PROYECTO',
   `PROYECTO_NOMBRE` varchar(128) DEFAULT NULL COMMENT 'NOMBRE DEL PROYECTO',
+  `PROYECTO_IMAGEN` varchar(64) DEFAULT NULL COMMENT 'IMAGEN DEL PROYECTO',
+  `PROYECTO_DESCRIPCION` varchar(512) DEFAULT NULL COMMENT 'DESCRIPCION DEL PROYECTO',
   `PROYECTO_ESTADO` tinyint(4) DEFAULT NULL COMMENT 'ESTADO DEL PROYECTO',
   PRIMARY KEY (`PROYECTO_ID`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
@@ -32415,11 +32421,11 @@ CREATE TABLE IF NOT EXISTS `cuentas_proyectos` (
 -- Volcado de datos para la tabla `cuentas_proyectos`
 --
 
-INSERT INTO `cuentas_proyectos` (`PROYECTO_ID`, `PROYECTO_NOMBRE`, `PROYECTO_ESTADO`) VALUES
-(1, 'Catastro', 1),
-(2, 'SED', 1),
-(3, 'Parques', 1),
-(4, 'Defensoria del Pueblo', 1);
+INSERT INTO `cuentas_proyectos` (`PROYECTO_ID`, `PROYECTO_NOMBRE`, `PROYECTO_IMAGEN`, `PROYECTO_DESCRIPCION`, `PROYECTO_ESTADO`) VALUES
+(1, 'Catastro', 'images/vice/catastro.jpg', 'Convocatoria No. 255 de 2013', 1),
+(2, 'SED', 'images/vice/sed.jpg', 'Secretaria de Educacion Distrital', 1),
+(3, 'Parques', 'images/vice/parques.jpg', 'Convocatoria No. 317 de 2013', 1),
+(4, 'Defensoria del Pueblo', 'images/vice/defensoria_del_pueblo.jpg', 'Defensoria del Pueblo - Convocatoria 01', 1);
 
 -- --------------------------------------------------------
 
@@ -32442,7 +32448,7 @@ CREATE TABLE IF NOT EXISTS `cuentas_session` (
 --
 
 INSERT INTO `cuentas_session` (`session_id`, `ip_address`, `user_agent`, `last_activity`, `user_data`) VALUES
-('7547dbe1dd743ac357d048cdb983fee5', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2158.2 Safari/537.36', 1410958694, 'a:17:{s:9:"user_data";s:0:"";s:10:"USUARIO_ID";s:1:"8";s:15:"USUARIO_NOMBRES";s:13:"ADMINISTRADOR";s:17:"USUARIO_APELLIDOS";s:7:"CUENTAS";s:21:"USUARIO_TIPODOCUMENTO";s:2:"CC";s:23:"USUARIO_NUMERODOCUMENTO";s:6:"123456";s:14:"USUARIO_CORREO";s:23:"yeison.arias@umb.edu.co";s:14:"USUARIO_GENERO";s:1:"M";s:25:"USUARIO_FECHADENACIMIENTO";s:10:"2014-08-25";s:27:"USUARIO_DIRECCIONRESIDENCIA";s:11:"VICECALIDAD";s:20:"USUARIO_TELEFONOFIJO";s:7:"1234567";s:15:"USUARIO_CELULAR";s:10:"3171115544";s:14:"USUARIO_ESTADO";s:1:"1";s:20:"USUARIO_FECHAINGRESO";s:19:"2014-08-25 14:45:52";s:11:"ID_TIPO_USU";s:1:"1";s:15:"rol_permissions";a:6:{s:3:"ROL";a:3:{s:4:"name";s:23:"ADMINISTRACION DE ROLES";s:2:"id";s:1:"1";s:11:"permissions";a:4:{s:15:"permission_view";s:1:"1";s:14:"permission_add";s:1:"1";s:15:"permission_edit";s:1:"1";s:17:"permission_delete";s:1:"1";}}s:3:"USU";a:3:{s:4:"name";s:26:"ADMINISTRACION DE USUARIOS";s:2:"id";s:1:"2";s:11:"permissions";a:4:{s:15:"permission_view";s:1:"1";s:14:"permission_add";s:1:"1";s:15:"permission_edit";s:1:"1";s:17:"permission_delete";s:1:"1";}}s:3:"COR";a:3:{s:4:"name";s:24:"ADMINISTRACION DE CORTES";s:2:"id";s:1:"3";s:11:"permissions";a:4:{s:15:"permission_view";s:1:"1";s:14:"permission_add";s:1:"1";s:15:"permission_edit";s:1:"1";s:17:"permission_delete";s:1:"1";}}s:3:"HVI";a:3:{s:4:"name";s:31:"ADMINISTRACION DE HOJAS DE VIDA";s:2:"id";s:1:"4";s:11:"permissions";a:4:{s:15:"permission_view";s:1:"1";s:14:"permission_add";s:1:"1";s:15:"permission_edit";s:1:"1";s:17:"permission_delete";s:1:"1";}}s:3:"CON";a:3:{s:4:"name";s:27:"ADMINISTRACION DE CONTRATOS";s:2:"id";s:1:"5";s:11:"permissions";a:4:{s:15:"permission_view";s:1:"1";s:14:"permission_add";s:1:"1";s:15:"permission_edit";s:1:"1";s:17:"permission_delete";s:1:"1";}}s:3:"DCO";a:3:{s:4:"name";s:32:"ADMINISTRACION DE DTOS POR CORTE";s:2:"id";s:1:"6";s:11:"permissions";a:4:{s:15:"permission_view";s:1:"1";s:14:"permission_add";s:1:"1";s:15:"permission_edit";s:1:"1";s:17:"permission_delete";s:1:"1";}}}s:9:"logged_in";b:1;}');
+('ec17fd93c335a3a2b6140aaed99fac98', '127.0.0.1', 'Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2158.2 Safari/537.36', 1411141154, 'a:17:{s:9:"user_data";s:0:"";s:10:"USUARIO_ID";s:1:"8";s:15:"USUARIO_NOMBRES";s:13:"ADMINISTRADOR";s:17:"USUARIO_APELLIDOS";s:7:"CUENTAS";s:21:"USUARIO_TIPODOCUMENTO";s:2:"CC";s:23:"USUARIO_NUMERODOCUMENTO";s:6:"123456";s:14:"USUARIO_CORREO";s:23:"yeison.arias@umb.edu.co";s:14:"USUARIO_GENERO";s:1:"M";s:25:"USUARIO_FECHADENACIMIENTO";s:10:"2014-08-25";s:27:"USUARIO_DIRECCIONRESIDENCIA";s:11:"VICECALIDAD";s:20:"USUARIO_TELEFONOFIJO";s:7:"1234567";s:15:"USUARIO_CELULAR";s:10:"3171115544";s:14:"USUARIO_ESTADO";s:1:"1";s:20:"USUARIO_FECHAINGRESO";s:19:"2014-08-25 14:45:52";s:11:"ID_TIPO_USU";s:1:"1";s:15:"rol_permissions";a:6:{s:3:"ROL";a:3:{s:4:"name";s:23:"ADMINISTRACION DE ROLES";s:2:"id";s:1:"1";s:11:"permissions";a:4:{s:15:"permission_view";s:1:"1";s:14:"permission_add";s:1:"1";s:15:"permission_edit";s:1:"1";s:17:"permission_delete";s:1:"1";}}s:3:"USU";a:3:{s:4:"name";s:26:"ADMINISTRACION DE USUARIOS";s:2:"id";s:1:"2";s:11:"permissions";a:4:{s:15:"permission_view";s:1:"1";s:14:"permission_add";s:1:"1";s:15:"permission_edit";s:1:"1";s:17:"permission_delete";s:1:"1";}}s:3:"COR";a:3:{s:4:"name";s:24:"ADMINISTRACION DE CORTES";s:2:"id";s:1:"3";s:11:"permissions";a:4:{s:15:"permission_view";s:1:"1";s:14:"permission_add";s:1:"1";s:15:"permission_edit";s:1:"1";s:17:"permission_delete";s:1:"1";}}s:3:"HVI";a:3:{s:4:"name";s:31:"ADMINISTRACION DE HOJAS DE VIDA";s:2:"id";s:1:"4";s:11:"permissions";a:4:{s:15:"permission_view";s:1:"1";s:14:"permission_add";s:1:"1";s:15:"permission_edit";s:1:"1";s:17:"permission_delete";s:1:"1";}}s:3:"CON";a:3:{s:4:"name";s:27:"ADMINISTRACION DE CONTRATOS";s:2:"id";s:1:"5";s:11:"permissions";a:4:{s:15:"permission_view";s:1:"1";s:14:"permission_add";s:1:"1";s:15:"permission_edit";s:1:"1";s:17:"permission_delete";s:1:"1";}}s:3:"DCO";a:3:{s:4:"name";s:32:"ADMINISTRACION DE DTOS POR CORTE";s:2:"id";s:1:"6";s:11:"permissions";a:4:{s:15:"permission_view";s:1:"1";s:14:"permission_add";s:1:"1";s:15:"permission_edit";s:1:"1";s:17:"permission_delete";s:1:"1";}}}s:9:"logged_in";b:1;}');
 
 -- --------------------------------------------------------
 
@@ -32496,18 +32502,20 @@ INSERT INTO `cuentas_tipo_contrato` (`TIPOCONTRATO_ID`, `TIPOCONTRATO_NOMBRE`, `
 CREATE TABLE IF NOT EXISTS `cuentas_tipo_documento` (
   `TIPODOCUMENTO_ID` int(11) NOT NULL AUTO_INCREMENT COMMENT 'ID DEL TIPO DE DOCUMENTO',
   `TIPODOCUMENTO_NOMBRE` varchar(512) DEFAULT NULL COMMENT 'NOMBRE DEL TIPO DE DOCUMENTO',
+  `TIPODOCUMENTO_TIPOCONSULTA` int(11) DEFAULT NULL,
   PRIMARY KEY (`TIPODOCUMENTO_ID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=8 ;
 
 --
 -- Volcado de datos para la tabla `cuentas_tipo_documento`
 --
 
-INSERT INTO `cuentas_tipo_documento` (`TIPODOCUMENTO_ID`, `TIPODOCUMENTO_NOMBRE`) VALUES
-(1, 'Hoja de Vida Digital'),
-(2, 'Archivos de Educacion'),
-(3, 'Experiencia Laboral'),
-(4, 'Certificado Bancario');
+INSERT INTO `cuentas_tipo_documento` (`TIPODOCUMENTO_ID`, `TIPODOCUMENTO_NOMBRE`, `TIPODOCUMENTO_TIPOCONSULTA`) VALUES
+(1, 'Hoja de Vida Digital', 1),
+(2, 'Archivos de Educacion', 1),
+(3, 'Experiencia Laboral', 1),
+(4, 'Certificado Bancario', 1),
+(5, 'Contrato Digital', 2);
 
 -- --------------------------------------------------------
 
@@ -32537,7 +32545,7 @@ CREATE TABLE IF NOT EXISTS `cuentas_usuarios` (
   UNIQUE KEY `USUARIO_NUMERODOCUMENTO_2` (`USUARIO_NUMERODOCUMENTO`),
   KEY `ID_TIPO_USU` (`ID_TIPO_USU`),
   KEY `USUARIO_NUMERODOCUMENTO` (`USUARIO_NUMERODOCUMENTO`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci COMMENT='USUARIOS DEL SISTEMA' AUTO_INCREMENT=11 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci COMMENT='USUARIOS DEL SISTEMA' AUTO_INCREMENT=14 ;
 
 --
 -- Volcado de datos para la tabla `cuentas_usuarios`
@@ -32545,7 +32553,9 @@ CREATE TABLE IF NOT EXISTS `cuentas_usuarios` (
 
 INSERT INTO `cuentas_usuarios` (`USUARIO_ID`, `USUARIO_PASSWORD`, `USUARIO_NOMBRES`, `USUARIO_APELLIDOS`, `USUARIO_TIPODOCUMENTO`, `USUARIO_NUMERODOCUMENTO`, `USUARIO_CORREO`, `USUARIO_GENERO`, `USUARIO_FECHADENACIMIENTO`, `USUARIO_LUGARDENACIMIENTO`, `USUARIO_DIRECCIONRESIDENCIA`, `USUARIO_LUGARDERESIDENCIA`, `USUARIO_TELEFONOFIJO`, `USUARIO_CELULAR`, `USUARIO_ESTADO`, `USUARIO_FECHAINGRESO`, `ID_TIPO_USU`) VALUES
 (8, '459c6d57$3c02e33fbdafee02053f7798cec7ccc2cff13f53', 'ADMINISTRADOR', 'CUENTAS', 'CC', '123456', 'yeison.arias@umb.edu.co', 'M', '2014-08-25', 'BOGOTA', 'VICECALIDAD', 'VICECALIDAD', '1234567', '3171115544', 1, '2014-08-25 19:45:52', 1),
-(10, '7792924b$eabf81b70d1de8bd63588502ea2fbaaffece34b8', 'Yeison 03', 'Arias 03', 'CC', '1110473459', 'yeison.arias3@umb.edu.co', 'M', '1988-07-18', 'Ibague3', 'Cra 44d Sur No. 72A-82 B/ Nuevo Delicias23', 'Bogota3', '211111133', '3168231713333', 1, '2014-09-10 16:10:16', 2);
+(11, 'd81d4e2e$c93a713efe1d13a37dc77feba874127f42f22725', 'ADMINISTRADOR', 'HOJAS DE VIDA', 'CC', '987654', '987654@GMAIL.COM', 'F', '2014-09-19', 'BOGOTA', 'CASA', 'BOGOTA', '2611111', '3161111111', 1, '2014-09-19 15:37:24', 2),
+(12, 'f4427723$c66eb8be4ba665dfe4f7488ff34a57dbd06ecc2b', 'ADMINISTRADOR', 'CONTRATOS', 'CC', '654321', '654321@GMAIL.COM', 'F', '2014-09-19', 'BOGOTA', 'CasA', '654321', '2111111', '3161111111', 1, '2014-09-19 15:38:08', 3),
+(13, '63051e72$40af7ae61937243460b6c3fa080cb2cd95d2b7f7', 'ADMINISTRADOR', 'DOCUMENTOS CORTE', 'CC', '321654', '321654@gmail.com', 'M', '2014-09-19', 'BOGOTA', 'CASA', 'BOGOTA', '2111111', '3161111111', 1, '2014-09-19 15:38:59', 4);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
